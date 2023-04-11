@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IAuthDomainModel, IUserDomainModel } from 'src/domain';
-import { IUserDomainService } from 'src/domain/services';
 import { environment } from 'src/environments/environment';
+import { IUserDomainService } from 'src/app/domain/services';
+import { IAuthDomainModel, IUserDomainModel } from 'src/app/domain/models';
 
 export class UserServiceImple implements IUserDomainService {
   private readonly _url: string = environment.apiUrl;
@@ -15,7 +15,7 @@ export class UserServiceImple implements IUserDomainService {
   signUp(params: any): Observable<IAuthDomainModel> {
     throw new Error('Method not implemented.');
   }
-  updateUser(params: any): Observable<IAuthDomainModel> {
+  updateUser(params: any): Observable<IUserDomainModel> {
     throw new Error('Method not implemented.');
   }
   deleteUser(params: any): Observable<IUserDomainModel> {
