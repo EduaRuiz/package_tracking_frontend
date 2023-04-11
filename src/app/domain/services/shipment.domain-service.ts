@@ -10,7 +10,8 @@ export interface IShipmentDomainService {
     command: INewShipmentDomainCommand
   ): Observable<IShipmentDomainModel>;
   updateShipment(
-    command: IUpdateShipmentDomainCommand
+    command: IUpdateShipmentDomainCommand,
+    shipmentId: string
   ): Observable<IShipmentDomainModel>;
   deleteShipment(shipmentId: string): Observable<IShipmentDomainModel>;
   getShipmentsByUser(): Observable<IShipmentDomainModel[]>;
