@@ -9,10 +9,11 @@ export class UpdateShipmentUseCase
 {
   constructor(private readonly shipment$: IShipmentDomainService) {}
 
-  execute(
-    params: IUpdateShipmentDomainCommand
-  ): Observable<IShipmentDomainModel> {
-    return this.shipment$.updateShipment(params).pipe(
+  execute(params: {
+    command: IUpdateShipmentDomainCommand;
+    _id: string;
+  }): Observable<IShipmentDomainModel> {
+    return this.shipment$.updateShipment(params.command, params._id).pipe(
       catchError((error: Error) => {
         throw error;
       })

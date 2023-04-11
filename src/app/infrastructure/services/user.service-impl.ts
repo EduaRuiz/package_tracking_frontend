@@ -8,7 +8,9 @@ import {
   ISignUpDomainCommand,
   IUpdateUserDomainCommand,
 } from 'src/app/domain/commands';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class UserServiceImpl implements IUserDomainService {
   private readonly _url: string = environment.apiUrl;
 

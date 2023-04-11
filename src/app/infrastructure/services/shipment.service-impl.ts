@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   INewShipmentDomainCommand,
@@ -8,6 +9,7 @@ import {
 import { IShipmentDomainService } from 'src/app/domain/services';
 import { environment } from 'src/environments/environment';
 
+@Injectable()
 export class ShipmentServiceImpl implements IShipmentDomainService {
   private readonly _url: string = environment.apiUrl;
 
