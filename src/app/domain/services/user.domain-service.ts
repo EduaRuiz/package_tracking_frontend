@@ -1,9 +1,14 @@
 import { Observable } from 'rxjs';
 import { IAuthDomainModel, IUserDomainModel } from '../models';
+import {
+  ISignInDomainCommand,
+  ISignUpDomainCommand,
+  IUpdateUserDomainCommand,
+} from '../commands';
 
 export interface IUserDomainService {
-  signIn(params: any): Observable<IAuthDomainModel>;
-  signUp(params: any): Observable<IAuthDomainModel>;
-  updateUser(params: any): Observable<IAuthDomainModel>;
-  deleteUser(params: any): Observable<IUserDomainModel>;
+  signIn(command: ISignInDomainCommand): Observable<IAuthDomainModel>;
+  signUp(command: ISignUpDomainCommand): Observable<IAuthDomainModel>;
+  updateUser(command: IUpdateUserDomainCommand): Observable<IAuthDomainModel>;
+  deleteUser(userId: string): Observable<IUserDomainModel>;
 }

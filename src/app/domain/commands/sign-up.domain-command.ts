@@ -1,4 +1,4 @@
-export interface SignUpDomainCommand {
+export interface ISignUpDomainCommand {
   email: string;
   firebaseId: string;
   name: string;
