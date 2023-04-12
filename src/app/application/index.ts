@@ -1,3 +1,3 @@
 export * from './application.module';
-export * from './delegators';
+export * from './delegator';
 export * from './use-cases';

@@ -32,7 +32,7 @@ export class PackageTrackingDelegate implements IUseCase<any> {
   ) {}
 
   execute<Response>(...args: any[]): Observable<Response> {
-    return this.delegate.execute({ ...args });
+    return this.delegate.execute(...args);
   }
 
   toSignIn(): void {

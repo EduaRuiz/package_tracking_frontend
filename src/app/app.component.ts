@@ -18,19 +18,18 @@ export class AppComponent {
   ngOnInit() {}
 
   signIn() {
-    console.log('1/////////////////////////');
-    this.signInUC
-      .execute({ email: 'eduar@Gmail.com', firebaseId: 'aJOaJcGbKuvZvm1lwAZo' })
-      .subscribe({
-        next: (value) => {
-          console.log('AppComponent signIn next', value);
-        },
-        error: (error) => {
-          console.log('AppComponent signIn error', error);
-        },
-        complete: () => {
-          console.log('AppComponent signIn complete');
-        },
-      });
+    const email = 'eduar@Gmail.com';
+    const firebaseId = 'aJOaJcGbKuvZvm1lwAZo';
+    this.signInUC.execute({ email, firebaseId }).subscribe({
+      next: (value) => {
+        console.log('AppComponent signIn next', value);
+      },
+      error: (error) => {
+        console.log('AppComponent signIn error', error);
+      },
+      complete: () => {
+        console.log('AppComponent signIn complete');
+      },
+    });
   }
 }
