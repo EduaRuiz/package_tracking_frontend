@@ -1,6 +1,6 @@
+import { StatusDomainModel } from '@domain/models';
 import { Observable } from 'rxjs';
-import { IStatusDomainModel } from '../models';
 
 export interface IStatusDomainService {
-  getStatus(statusId: string): Observable<IStatusDomainModel>;
+  getStatus(statusId: string): Observable<StatusDomainModel>;
 }

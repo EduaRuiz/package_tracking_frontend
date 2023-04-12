@@ -1,13 +1,13 @@
-import { ISignUpDomainCommand } from 'src/app/domain/commands';
+import { AuthDomainModel } from '@domain/models';
 import { IUseCase } from './interface';
-import { IAuthDomainModel } from 'src/app/domain/models';
-import { IUserDomainService } from 'src/app/domain/services';
 import { Observable, catchError } from 'rxjs';
+import { ISignUpDomainCommand } from '@domain/commands';
+import { IUserDomainService } from '@domain/services';
 
-export class SignUpUseCase implements IUseCase<IAuthDomainModel> {
+export class SignUpUseCase implements IUseCase<AuthDomainModel> {
   constructor(private readonly user$: IUserDomainService) {}
 
-  execute(command: ISignUpDomainCommand): Observable<IAuthDomainModel> {
+  execute(command: ISignUpDomainCommand): Observable<AuthDomainModel> {
     return this.user$.signUp(command).pipe(
       catchError((error: Error) => {
         throw error;
