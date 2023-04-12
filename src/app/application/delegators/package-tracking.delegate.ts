@@ -19,10 +19,11 @@ import {
   SignInUseCase,
   SignUpUseCase,
   UpdateUserUseCase,
+  RefreshTokenUseCase,
 } from '../use-cases';
 
-export class PackageTrackingDelegate implements IUseCase<any, any> {
-  private delegate!: IUseCase<any, any>;
+export class PackageTrackingDelegate implements IUseCase<any> {
+  private delegate!: IUseCase<any>;
 
   constructor(
     private readonly user$: IUserDomainService,
@@ -72,5 +73,9 @@ export class PackageTrackingDelegate implements IUseCase<any, any> {
 
   toDeleteUser(): void {
     this.delegate = new DeleteUserUseCase(this.user$);
+  }
+
+  toRefreshToken(): void {
+    this.delegate = new RefreshTokenUseCase(this.user$);
   }
 }

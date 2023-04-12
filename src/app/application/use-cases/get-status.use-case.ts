@@ -3,11 +3,11 @@ import { IUseCase } from './interface';
 import { Observable, catchError } from 'rxjs';
 import { IStatusDomainService } from 'src/app/domain/services';
 
-export class GetStatusUseCase implements IUseCase<string, IStatusDomainModel> {
+export class GetStatusUseCase implements IUseCase<IStatusDomainModel> {
   constructor(private readonly status$: IStatusDomainService) {}
 
-  execute(id: string): Observable<IStatusDomainModel> {
-    return this.status$.getStatus(id).pipe(
+  execute(statusId: string): Observable<IStatusDomainModel> {
+    return this.status$.getStatus(statusId).pipe(
       catchError((error: Error) => {
         throw error;
       })

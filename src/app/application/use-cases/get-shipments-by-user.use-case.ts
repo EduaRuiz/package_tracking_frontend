@@ -4,7 +4,7 @@ import { IShipmentDomainService } from 'src/app/domain/services';
 import { Observable, catchError } from 'rxjs';
 
 export class GetShipmentsByUserUseCase
-  implements IUseCase<undefined, IShipmentDomainModel[]>
+  implements IUseCase<IShipmentDomainModel[]>
 {
   constructor(private readonly shipment$: IShipmentDomainService) {}
 

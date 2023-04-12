@@ -4,78 +4,63 @@ import {
   StatusServiceImpl,
   UserServiceImpl,
 } from './services';
-import {
-  IShipmentDomainService,
-  IStatusDomainService,
-  IUserDomainService,
-} from '../domain/services';
-import {
-  GetStatusUseCase,
-  RegisterNewShipmentUseCase,
-  SignInUseCase,
-} from '../application/use-cases';
+// import {
+//   IShipmentDomainService,
+//   IStatusDomainService,
+//   IUserDomainService,
+// } from '../domain/services';
+// import {
+//   GetStatusUseCase,
+//   RegisterNewShipmentUseCase,
+//   SignInUseCase,
+// } from '../application/use-cases';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PackageTrackingDelegate } from '../application';
 
-// const delegatorFactory = (
-//   userService: IUserDomainService,
-//   shipmentService: IShipmentDomainService,
-//   statusService: IStatusDomainService
-// ) => {
-//   return new PackageTrackingDelegate(
-//     userService,
-//     shipmentService,
-//     statusService
-//   );
-// };
-// export const delegatorProvider = {
-//   provide: PackageTrackingDelegate,
-//   useFactory: delegatorFactory,
-//   deps: [UserServiceImpl, ShipmentServiceImpl, StatusServiceImpl],
-// };
-
-// const signInUseCaseFactory = (userService: IUserDomainService) =>
-//   new SignInUseCase(userService);
 // export const signInUseCaseProvider = {
 //   provide: SignInUseCase,
-//   useFactory: signInUseCaseFactory,
-//   inject: [IUserDomainService],
+//   useFactory: (userService: IUserDomainService) =>
+//     new SignInUseCase(userService),
+//   deps: ['IUserDomainService'],
 // };
-export const signInUseCaseProvider = {
-  provide: SignInUseCase,
-  useFactory: (userService: IUserDomainService) =>
-    new SignInUseCase(userService),
-  deps: ['IUserDomainService'],
-};
 
-// const getStatusFactory = (statusService: IStatusDomainService) =>
-//   new GetStatusUseCase(statusService);
 // export const getStatusUseCaseProvider = {
 //   provide: GetStatusUseCase,
-//   useFactory: getStatusFactory,
-//   deps: [StatusServiceImpl],
+//   useFactory: (statusService: IStatusDomainService) =>
+//     new GetStatusUseCase(statusService),
+//   deps: ['StatusServiceImpl'],
 // };
 
-// const registerNewShipmentUseCaseFactory = (
-//   shipmentService: IShipmentDomainService
-// ) => new RegisterNewShipmentUseCase(shipmentService);
 // export const registerNewShipmentUseCaseProvider = {
 //   provide: RegisterNewShipmentUseCase,
-//   useFactory: registerNewShipmentUseCaseFactory,
-//   deps: [ShipmentServiceImpl],
+//   useFactory: (shipmentService: IShipmentDomainService) =>
+//     new RegisterNewShipmentUseCase(shipmentService),
+//   deps: ['IShipmentDomainService'],
 // };
 
 @NgModule({
   providers: [
-    { provide: 'IUserDomainService', useClass: UserServiceImpl },
-    signInUseCaseProvider,
+    {
+      provide: PackageTrackingDelegate,
+      useClass: PackageTrackingDelegate,
+      deps: [
+        'IUserDomainService',
+        'IShipmentDomainService',
+        'IStatusDomainService',
+      ],
+    },
+    // signInUseCaseProvider,
     // getStatusUseCaseProvider,
     // registerNewShipmentUseCaseProvider,
+    { provide: 'IShipmentDomainService', useClass: ShipmentServiceImpl },
+    { provide: 'IStatusDomainService', useClass: StatusServiceImpl },
     // {
-    //   provide: [IUserDomainService, IShipmentDomainService, IStatusDomainService],
-    //   useClass: [UserServiceImpl, ShipmentServiceImpl, StatusServiceImpl],
+    //   provide: SignInUseCase,
+    //   useClass: SignInUseCase,
+    //   deps: ['IUserDomainService'],
     // },
+    { provide: 'IUserDomainService', useClass: UserServiceImpl },
   ],
   imports: [CommonModule, HttpClientModule],
 })

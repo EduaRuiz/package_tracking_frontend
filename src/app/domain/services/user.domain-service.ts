@@ -11,4 +11,5 @@ export interface IUserDomainService {
   signUp(command: ISignUpDomainCommand): Observable<IAuthDomainModel>;
   updateUser(command: IUpdateUserDomainCommand): Observable<IUserDomainModel>;
   deleteUser(userId: string): Observable<IUserDomainModel>;
+  refreshToken(): Observable<string>;
 }

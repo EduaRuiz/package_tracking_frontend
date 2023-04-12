@@ -4,16 +4,14 @@ import { IShipmentDomainModel } from 'src/app/domain/models';
 import { IShipmentDomainService } from 'src/app/domain/services';
 import { IUseCase } from './interface';
 
-export class UpdateShipmentUseCase
-  implements IUseCase<IUpdateShipmentDomainCommand, IShipmentDomainModel>
-{
+export class UpdateShipmentUseCase implements IUseCase<IShipmentDomainModel> {
   constructor(private readonly shipment$: IShipmentDomainService) {}
 
-  execute(params: {
-    command: IUpdateShipmentDomainCommand;
-    _id: string;
-  }): Observable<IShipmentDomainModel> {
-    return this.shipment$.updateShipment(params.command, params._id).pipe(
+  execute(
+    command: IUpdateShipmentDomainCommand,
+    shipmentId: string
+  ): Observable<IShipmentDomainModel> {
+    return this.shipment$.updateShipment(command, shipmentId).pipe(
       catchError((error: Error) => {
         throw error;
       })

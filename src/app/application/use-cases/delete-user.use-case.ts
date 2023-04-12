@@ -2,11 +2,11 @@ import { Observable, catchError, map, switchMap } from 'rxjs';
 import { IUserDomainService } from 'src/app/domain/services';
 import { IUseCase } from './interface';
 
-export class DeleteUserUseCase implements IUseCase<string, boolean> {
+export class DeleteUserUseCase implements IUseCase<boolean> {
   constructor(private readonly user$: IUserDomainService) {}
 
-  execute(id: string): Observable<boolean> {
-    return this.user$.deleteUser(id).pipe(
+  execute(userId: string): Observable<boolean> {
+    return this.user$.deleteUser(userId).pipe(
       map(() => true),
       catchError((error: Error) => {
         throw error;
