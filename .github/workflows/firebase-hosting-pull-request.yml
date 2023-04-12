@@ -14,4 +14,4 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PACKAGE_TRACKING_D5E6A }}"
-          projectId: package-tracking-frontend
+          projectId: package-tracking-d5e6a
