@@ -1,13 +1,14 @@
 import { Observable, catchError, map, of } from 'rxjs';
 import { IUseCase } from './interface';
-import { IUserDomainService } from 'src/app/domain';
+import { AuthDomainModel } from '@domain/models';
+import { IUserDomainService } from '@domain/services';
 
 export class RefreshTokenUseCase implements IUseCase<boolean> {
   constructor(private readonly userService: IUserDomainService) {}
 
   execute(): Observable<boolean> {
     return this.userService.refreshToken().pipe(
-      map((response: string) => !!response),
+      map((response: AuthDomainModel) => !!response),
       catchError(() => of(false))
     );
   }

@@ -1,6 +1,5 @@
 import { IUseCase } from './interface';
-import { Observable, switchMap } from 'rxjs';
-import { ISignInDomainCommand } from '@domain/commands';
+import { Observable, catchError, of, switchMap } from 'rxjs';
 import { AuthDomainModel } from '@domain/models';
 import { IAuthDomainService, IUserDomainService } from '@domain/services';
 
@@ -10,18 +9,20 @@ export class SignInUseCase implements IUseCase<AuthDomainModel> {
     private readonly auth$: IAuthDomainService
   ) {}
 
-  execute(command: ISignInDomainCommand): Observable<AuthDomainModel> {
+  execute(): Observable<AuthDomainModel> {
     return this.auth$.getUserCredentials().pipe(
       switchMap((userCredential) => {
         const { user } = userCredential;
-        const { email, uid } = user;
-        return this.user$.signIn({ email, firebaseId: uid });
+        const { email, uid, displayName } = user;
+        return this.user$.signIn({ email, firebaseId: uid }).pipe(
+          catchError((error: Error) => {
+            return of({
+              data: { email, firebaseId: uid, name: displayName },
+            } as AuthDomainModel);
+            // : throwError(() => error);
+          })
+        );
       })
     );
-    // return this.user$.signIn(command).pipe(
-    //   catchError((error: Error) => {
-    //     throw error;
-    //   })
-    // );
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PackageTrackingDelegate } from './application';
+import { PackageTrackingDelegate } from '@application/delegator';
 
 @Component({
   selector: 'app-root',
@@ -23,15 +23,6 @@ export class AppComponent {
         console.log('AppComponent signIn next', value);
       },
       error: (error) => {
-        this.signInUC.toSignUp();
-        this.signInUC.execute({ email, firebaseId }).subscribe(
-          (value) => {
-            console.log('AppComponent signIn next', value);
-          },
-          (error) => {
-            console.log('AppComponent signIn error', error);
-          }
-        );
         console.log('AppComponent signIn error', error);
       },
       complete: () => {

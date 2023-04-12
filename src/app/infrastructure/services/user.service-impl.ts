@@ -16,10 +16,10 @@ export class UserServiceImpl implements IUserDomainService {
 
   constructor(private readonly http: HttpClient) {}
 
-  refreshToken(): Observable<string> {
-    return this.http.get<string>(`${this._url}/user/refresh-token`).pipe(
-      tap((value: string) => {
-        localStorage.setItem('access_token', value);
+  refreshToken(): Observable<AuthModel> {
+    return this.http.get<AuthModel>(`${this._url}/user/token/refresh`).pipe(
+      tap((value: AuthModel) => {
+        localStorage.setItem('access_token', value.token);
       })
     );
   }
@@ -28,7 +28,6 @@ export class UserServiceImpl implements IUserDomainService {
     const body = { ...params };
     return this.http.post<AuthModel>(`${this._url}/user/sign-in`, body).pipe(
       tap((value: AuthModel) => {
-        console.log(value);
         localStorage.setItem('access_token', value.token);
       })
     );

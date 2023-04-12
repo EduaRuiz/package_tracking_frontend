@@ -5,6 +5,7 @@ export class AuthDomainModel implements IAuthDomainModel {
     _id: string;
     email: string;
     name: string;
+    firebaseId?: string;
   };
   token: string;
 
