@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { IShipmentDomainService } from '@domain/services';
 import {
-  INewShipmentDomainCommand,
-  IShipmentDomainModel,
-  IUpdateShipmentDomainCommand,
-} from 'src/app/domain';
-import { IShipmentDomainService } from 'src/app/domain/services';
+  NewShipmentCommand,
+  UpdateShipmentCommand,
+} from '@infrastructure/commands';
+import { ShipmentModel } from '@infrastructure/models';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -14,36 +14,29 @@ export class ShipmentServiceImpl implements IShipmentDomainService {
   private readonly _url: string = environment.apiUrl;
 
   constructor(private readonly http: HttpClient) {}
-  createShipment(
-    command: INewShipmentDomainCommand
-  ): Observable<IShipmentDomainModel> {
+  createShipment(command: NewShipmentCommand): Observable<ShipmentModel> {
     const body = { ...command };
-    return this.http.post<IShipmentDomainModel>(
-      `${this._url}/shipment/create`,
-      body
-    );
+    return this.http.post<ShipmentModel>(`${this._url}/shipment/create`, body);
   }
   updateShipment(
-    command: IUpdateShipmentDomainCommand,
+    command: UpdateShipmentCommand,
     shipmentId: string
-  ): Observable<IShipmentDomainModel> {
+  ): Observable<ShipmentModel> {
     const body = { ...command };
-    return this.http.patch<IShipmentDomainModel>(
+    return this.http.patch<ShipmentModel>(
       `${this._url}/shipment/update/${shipmentId}`,
       body
     );
   }
-  deleteShipment(shipmentId: string): Observable<IShipmentDomainModel> {
-    return this.http.delete<IShipmentDomainModel>(
+  deleteShipment(shipmentId: string): Observable<ShipmentModel> {
+    return this.http.delete<ShipmentModel>(
       `${this._url}/shipment/delete/${shipmentId}`
     );
   }
-  getShipmentsByUser(): Observable<IShipmentDomainModel[]> {
-    return this.http.get<IShipmentDomainModel[]>(`${this._url}/shipment/all`);
+  getShipmentsByUser(): Observable<ShipmentModel[]> {
+    return this.http.get<ShipmentModel[]>(`${this._url}/shipment/all`);
   }
-  getShipment(shipmentId: string): Observable<IShipmentDomainModel> {
-    return this.http.get<IShipmentDomainModel>(
-      `${this._url}/shipment/${shipmentId}`
-    );
+  getShipment(shipmentId: string): Observable<ShipmentModel> {
+    return this.http.get<ShipmentModel>(`${this._url}/shipment/${shipmentId}`);
   }
 }

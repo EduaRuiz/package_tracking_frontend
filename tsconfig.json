@@ -31,6 +31,7 @@
       "@domain/*": ["src/app/domain/*"],
       "@application/*": ["src/app/application/*"],
       "@infrastructure/*": ["src/app/infrastructure/*"],
+      "@presentation/*": ["src/app/presentation/*"],
     }
   },
   "angularCompilerOptions": {

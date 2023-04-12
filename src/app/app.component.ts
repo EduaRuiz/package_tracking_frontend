@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-// import { signInUseCaseProvider } from './infrastructure/infrastructure.module';
-import { SignInUseCase } from './application/use-cases';
 import { PackageTrackingDelegate } from './application';
 
 @Component({
@@ -25,10 +23,28 @@ export class AppComponent {
         console.log('AppComponent signIn next', value);
       },
       error: (error) => {
+        this.signInUC.toSignUp();
+        this.signInUC.execute({ email, firebaseId }).subscribe(
+          (value) => {
+            console.log('AppComponent signIn next', value);
+          },
+          (error) => {
+            console.log('AppComponent signIn error', error);
+          }
+        );
         console.log('AppComponent signIn error', error);
       },
       complete: () => {
         console.log('AppComponent signIn complete');
+      },
+    });
+  }
+
+  signOut() {
+    this.signInUC.toSignOut();
+    this.signInUC.execute().subscribe({
+      next: (value) => {
+        console.log('AppComponent signOut next', value);
       },
     });
   }

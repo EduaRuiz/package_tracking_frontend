@@ -1,5 +1,6 @@
 import { IUseCase } from '../use-cases/interface';
 import {
+  IAuthDomainService,
   IShipmentDomainService,
   IStatusDomainService,
   IUserDomainService,
@@ -20,6 +21,7 @@ import {
   SignUpUseCase,
   UpdateUserUseCase,
   RefreshTokenUseCase,
+  SignOutUseCase,
 } from '../use-cases';
 
 export class PackageTrackingDelegate implements IUseCase<any> {
@@ -28,7 +30,8 @@ export class PackageTrackingDelegate implements IUseCase<any> {
   constructor(
     private readonly user$: IUserDomainService,
     private readonly shipment$: IShipmentDomainService,
-    private readonly status$: IStatusDomainService
+    private readonly status$: IStatusDomainService,
+    private readonly auth$: IAuthDomainService
   ) {}
 
   execute<Response>(...args: any[]): Observable<Response> {
@@ -36,7 +39,7 @@ export class PackageTrackingDelegate implements IUseCase<any> {
   }
 
   toSignIn(): void {
-    this.delegate = new SignInUseCase(this.user$);
+    this.delegate = new SignInUseCase(this.user$, this.auth$);
   }
 
   toSignUp(): void {
@@ -77,5 +80,9 @@ export class PackageTrackingDelegate implements IUseCase<any> {
 
   toRefreshToken(): void {
     this.delegate = new RefreshTokenUseCase(this.user$);
+  }
+
+  toSignOut(): void {
+    this.delegate = new SignOutUseCase(this.auth$);
   }
 }

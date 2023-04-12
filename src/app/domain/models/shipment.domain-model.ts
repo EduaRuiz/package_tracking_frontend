@@ -1,11 +1,36 @@
-import { IStatusDomainModel, IUserDomainModel } from '.';
+import { StatusDomainModel } from '.';
+import { IShipmentDomainModel, IUserDomainModel } from './interfaces';
 
-export interface IShipmentDomainModel {
-  _id: string;
+export class ShipmentDomainModel implements IShipmentDomainModel {
+  _id?: string;
+  name: string;
+  description: string;
+  status: StatusDomainModel;
+  createdAt: Date;
+  updatedAt: Date;
   user: IUserDomainModel;
-  status: IStatusDomainModel;
   originAddress: 'string';
   destinationAddress: 'string';
-  updatedAt: Date;
-  createdAt: Date;
+
+  constructor(
+    name: string,
+    description: string,
+    status: StatusDomainModel,
+    createdAt: Date,
+    updatedAt: Date,
+    user: IUserDomainModel,
+    originAddress: 'string',
+    destinationAddress: 'string',
+    _id?: string
+  ) {
+    this._id = _id;
+    this.name = name;
+    this.description = description;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.user = user;
+    this.originAddress = originAddress;
+    this.destinationAddress = destinationAddress;
+  }
 }

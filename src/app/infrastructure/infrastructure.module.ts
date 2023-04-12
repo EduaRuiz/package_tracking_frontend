@@ -4,40 +4,13 @@ import {
   StatusServiceImpl,
   UserServiceImpl,
 } from './services';
-// import {
-//   IShipmentDomainService,
-//   IStatusDomainService,
-//   IUserDomainService,
-// } from '../domain/services';
-// import {
-//   GetStatusUseCase,
-//   RegisterNewShipmentUseCase,
-//   SignInUseCase,
-// } from '../application/use-cases';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PackageTrackingDelegate } from '../application';
-
-// export const signInUseCaseProvider = {
-//   provide: SignInUseCase,
-//   useFactory: (userService: IUserDomainService) =>
-//     new SignInUseCase(userService),
-//   deps: ['IUserDomainService'],
-// };
-
-// export const getStatusUseCaseProvider = {
-//   provide: GetStatusUseCase,
-//   useFactory: (statusService: IStatusDomainService) =>
-//     new GetStatusUseCase(statusService),
-//   deps: ['StatusServiceImpl'],
-// };
-
-// export const registerNewShipmentUseCaseProvider = {
-//   provide: RegisterNewShipmentUseCase,
-//   useFactory: (shipmentService: IShipmentDomainService) =>
-//     new RegisterNewShipmentUseCase(shipmentService),
-//   deps: ['IShipmentDomainService'],
-// };
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from 'src/environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { AuthServiceImpl } from './utils';
 
 @NgModule({
   providers: [
@@ -48,20 +21,19 @@ import { PackageTrackingDelegate } from '../application';
         'IUserDomainService',
         'IShipmentDomainService',
         'IStatusDomainService',
+        'IAuthDomainService',
       ],
     },
-    // signInUseCaseProvider,
-    // getStatusUseCaseProvider,
-    // registerNewShipmentUseCaseProvider,
     { provide: 'IShipmentDomainService', useClass: ShipmentServiceImpl },
     { provide: 'IStatusDomainService', useClass: StatusServiceImpl },
-    // {
-    //   provide: SignInUseCase,
-    //   useClass: SignInUseCase,
-    //   deps: ['IUserDomainService'],
-    // },
     { provide: 'IUserDomainService', useClass: UserServiceImpl },
+    { provide: 'IAuthDomainService', useClass: AuthServiceImpl },
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+  ],
 })
 export class InfrastructureModule {}
