@@ -22,7 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
         .set('Authorization', `Bearer ${authToken}`)
         .set('Content-Type', 'application/json'),
     });
-    console.log(authReq);
     return next.handle(authReq);
   }
 }

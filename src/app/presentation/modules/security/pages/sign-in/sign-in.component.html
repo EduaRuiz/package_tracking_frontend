@@ -1,3 +1,33 @@
-
-
-<p>sign-in works!</p>
+<div class="container col-10 col-xxl-4 col-xl-5 col-lg-6 col-md-7 col-sm-8 bg-primary shadow text-white bg-dark mt-5"
+  data-aos="zoom-in" data-aos-duration="1000">
+  <div class="row align-items-stretch" data-aos="zoom-in" data-aos-duration="1000">
+    <div class="col mx-5">
+      <div class="text-center pt-5 pb-3">
+        <img src="assets/images/logo.png" width="128" alt="">
+      </div>
+      <div class="container w-100 my-3">
+        <div class="row text-center">
+          <div class="col-12"><app-typewriter [text]="'Login with'" [speed]="50"></app-typewriter></div>
+        </div>
+        <div class="row mt-2">
+          <button class="btn btn-outline-danger w-100 my-2" (click)="onGoogle()">
+            <div class="row align-items-center">
+              <div class="col-2 d-none d-md-block">
+                <img src="assets/images/Google_icon.svg" alt="" width="32">
+              </div>
+              <div class="col-12 text-center col-md-10">
+                Google
+              </div>
+            </div>
+          </button>
+        </div>
+        <div class="my-2">
+          <span>
+            Don`t have an account? 
+            <a [routerLink]="signUp">SignUp</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

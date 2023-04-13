@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate, CanLoad {
   canLoad(): Observable<boolean> {
     return this.delegate.execute<boolean>().pipe(
       tap((valid) => {
-        console.log('valid', valid);
         !valid && localStorage.removeItem('access_token');
         !valid && this.router.navigate(['index']);
       })

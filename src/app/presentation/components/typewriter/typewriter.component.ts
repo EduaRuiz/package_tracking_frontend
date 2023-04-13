@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TypewriterComponent implements OnInit {
   @Input() text!: string;
+  @Input() speed = 100;
   animatedText = '';
 
   ngOnInit() {
@@ -17,6 +18,6 @@ export class TypewriterComponent implements OnInit {
       if (i > this.text.length) {
         clearInterval(intervalId);
       }
-    }, 100);
+    }, this.speed);
   }
 }

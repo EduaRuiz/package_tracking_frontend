@@ -15,6 +15,9 @@ export class SignUpComponent implements OnInit {
   signIn!: string[];
   signUp!: string[];
   checkoutForm!: FormGroup;
+  private email: string = 'email@mail.com';
+  private name!: string;
+  private firebaseId!: string;
 
   constructor(
     private readonly signUpUC: PackageTrackingDelegate,
@@ -22,18 +25,12 @@ export class SignUpComponent implements OnInit {
     private readonly router: Router
   ) {
     signUpUC.toSignUp();
-    this.signIn = ['../signin'];
-    this.signUp = ['../signup'];
+    this.signIn = ['../sign-in'];
+    this.signUp = ['../sign-up'];
     this.checkoutForm = this.formBuilder.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(new RegExp(environment.regexEmail)),
-        ],
-      ],
+      email: [this.email, [Validators.required]],
       name: [
-        '',
+        this.name,
         [
           Validators.required,
           Validators.minLength(5),
@@ -58,7 +55,6 @@ export class SignUpComponent implements OnInit {
           Validators.pattern(new RegExp('^[0-9]+$')),
         ],
       ],
-      avatarUrl: ['', []],
     });
   }
 
@@ -68,17 +64,21 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(): void {
     const user = <UserModel>this.checkoutForm.value;
+    user.firebaseId = this.firebaseId;
+    user.email = this.email;
+    user.name = this.name;
     this.checkoutForm.markAllAsTouched();
     if (this.checkoutForm.valid) {
       this.signUpUC.execute(user).subscribe({
         next: (data) => this.handlerSuccess(data),
         error: (err) => this.handlerError(err),
-        complete: () => console.log('complete'),
       });
     }
   }
 
-  handlerSuccess(data: any): void {}
+  handlerSuccess(data: any): void {
+    this.router.navigate(['dashboard']);
+  }
 
   handlerError(err: any): void {
     console.error(err);
@@ -91,7 +91,8 @@ export class SignUpComponent implements OnInit {
 
   clear() {
     this.checkoutForm.reset();
-    this.checkoutForm.get('documentTypeId')?.setValue('CC');
+    this.checkoutForm.get('email')?.setValue(this.email);
+    this.checkoutForm.get('name')?.setValue(this.name);
   }
 
   handlerValidators(param: 'email' | 'name' | 'phone' | 'document'): string {
@@ -101,9 +102,7 @@ export class SignUpComponent implements OnInit {
       : '';
   }
 
-  handlerMessage(
-    param: 'email' | 'name' | 'phone' | 'document' | 'avatarUrl'
-  ): string {
+  handlerMessage(param: 'email' | 'name' | 'phone' | 'document'): string {
     const messages = {
       pattern: `Please provide a valid ${param}`,
       required: `Enter ${param} here`,
@@ -122,7 +121,7 @@ export class SignUpComponent implements OnInit {
         message = messages.required;
         break;
       case 'pattern':
-        message = messages.pattern; //+param==='email'?'. The password must be at least 8 characters and contain at least 1 lowercase, 1 uppercase, and 1 number.':''
+        message = messages.pattern;
         break;
       case 'minlength':
         message = errorValue?.requiredLength + messages.minlength;
