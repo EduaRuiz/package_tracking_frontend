@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { AuthModel } from '@infrastructure/models';
+import { DataSignUpService } from '../../services';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,24 +11,21 @@ import { AuthModel } from '@infrastructure/models';
 })
 export class SignInComponent implements OnInit {
   resetPass!: string[];
-  signUp!: string[];
   unauthorized!: boolean;
 
   constructor(
     private readonly signInUC: PackageTrackingDelegate,
-    private readonly router: Router
-  ) {
-    this.signUp = ['../sign-up'];
-  }
+    private readonly router: Router,
+    private dataSignUpService: DataSignUpService
+  ) {}
 
-  ngOnInit(): void {
-    this.random_bg_color();
-  }
+  ngOnInit(): void {}
 
   onGoogle(): void {
     this.signInUC.toSignIn();
     this.signInUC.execute().subscribe({
-      next: (value) => {
+      next: (value: unknown) => {
+        console.log(value);
         this.handlerSuccess(value);
       },
       error: (error) => {
@@ -37,7 +35,14 @@ export class SignInComponent implements OnInit {
   }
 
   handlerSuccess(data: any): void {
-    !data?.firebaseId
+    console.log(data?.data?.firebaseId);
+    data?.data?.firebaseId !== undefined &&
+      this.dataSignUpService.setData(
+        data.data.email,
+        data.data.firebaseId,
+        data.data.name
+      );
+    data?.data?.firebaseId !== undefined
       ? this.router.navigate(['index/sign-up'])
       : this.router.navigate(['dashboard']);
   }
@@ -45,13 +50,5 @@ export class SignInComponent implements OnInit {
   handlerError(err: any): void {
     console.error(err);
     this.unauthorized = true;
-  }
-
-  private random_bg_color() {
-    var r = Math.floor(Math.random() * 256);
-    var g = Math.floor(Math.random() * 256);
-    var b = Math.floor(Math.random() * 256);
-    var bgColor = 'rgb(' + r + ',' + g + ',' + b + ')';
-    document.body.style.background = bgColor;
   }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { UserModel } from '@infrastructure/models';
 import { environment } from 'src/environments/environment';
+import { DataSignUpService } from '../../services';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -15,14 +16,15 @@ export class SignUpComponent implements OnInit {
   signIn!: string[];
   signUp!: string[];
   checkoutForm!: FormGroup;
-  private email: string = 'email@mail.com';
+  private email: string = '';
   private name!: string;
   private firebaseId!: string;
 
   constructor(
     private readonly signUpUC: PackageTrackingDelegate,
     private readonly formBuilder: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private dataSignUpService: DataSignUpService
   ) {
     signUpUC.toSignUp();
     this.signIn = ['../sign-in'];
@@ -59,11 +61,19 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.random_bg_color();
+    this.dataSignUpService.getData().subscribe((data) => {
+      this.email = data.email;
+      this.name = data.name;
+      this.firebaseId = data.firebaseId;
+      this.checkoutForm.get('email')?.setValue(this.email);
+      this.checkoutForm.get('name')?.setValue(this.name);
+      this.email === '' && this.router.navigate(['index/sign-in']);
+    });
   }
 
   onSubmit(): void {
     const user = <UserModel>this.checkoutForm.value;
+    console.log(user);
     user.firebaseId = this.firebaseId;
     user.email = this.email;
     user.name = this.name;
@@ -131,13 +141,5 @@ export class SignUpComponent implements OnInit {
         break;
     }
     return message;
-  }
-
-  private random_bg_color() {
-    var r = Math.floor(Math.random() * 256);
-    var g = Math.floor(Math.random() * 256);
-    var b = Math.floor(Math.random() * 256);
-    var bgColor = 'rgb(' + r + ',' + g + ',' + b + ')';
-    document.body.style.background = bgColor;
   }
 }
