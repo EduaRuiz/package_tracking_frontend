@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { UserModel } from '@infrastructure/models';
-import { environment } from 'src/environments/environment';
 import { DataSignUpService } from '../../services';
+import { HttpErrorResponse } from '@angular/common/http';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -26,7 +26,6 @@ export class SignUpComponent implements OnInit {
     private readonly router: Router,
     private dataSignUpService: DataSignUpService
   ) {
-    signUpUC.toSignUp();
     this.signIn = ['../sign-in'];
     this.signUp = ['../sign-up'];
     this.checkoutForm = this.formBuilder.group({
@@ -52,8 +51,8 @@ export class SignUpComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(12),
+          Validators.minLength(7),
+          Validators.maxLength(10),
           Validators.pattern(new RegExp('^[0-9]+$')),
         ],
       ],
@@ -73,25 +72,24 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(): void {
     const user = <UserModel>this.checkoutForm.value;
-    console.log(user);
     user.firebaseId = this.firebaseId;
     user.email = this.email;
     user.name = this.name;
     this.checkoutForm.markAllAsTouched();
-    if (this.checkoutForm.valid) {
+    this.signUpUC.toSignUp();
+    this.checkoutForm.valid &&
       this.signUpUC.execute(user).subscribe({
-        next: (data) => this.handlerSuccess(data),
-        error: (err) => this.handlerError(err),
+        next: () => this.handlerSuccess(),
+        error: (err: HttpErrorResponse) => this.handlerError(err),
       });
-    }
   }
 
-  handlerSuccess(data: any): void {
+  handlerSuccess(): void {
     this.router.navigate(['dashboard']);
   }
 
-  handlerError(err: any): void {
-    console.error(err);
+  handlerError(err: HttpErrorResponse): void {
+    console.error(err.error.message, 'handlerError');
     // Swal.fire({
     //   icon: 'error',
     //   title: 'Oops...',

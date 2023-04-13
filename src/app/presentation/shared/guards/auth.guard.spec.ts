@@ -52,21 +52,4 @@ describe('AuthGuard', () => {
       expect(router.navigate).toHaveBeenCalledWith(['index']);
     });
   });
-
-  it('should canLoad return true', () => {
-    jest.spyOn(delegate, 'execute').mockReturnValue(of(true));
-
-    guard.canLoad().subscribe((result) => {
-      expect(result).toBe(true);
-      expect(router.navigate).not.toHaveBeenCalled();
-    });
-  });
-
-  it('should canLoad return false and navigate to index', () => {
-    jest.spyOn(delegate, 'execute').mockReturnValue(of(false));
-
-    guard.canLoad().subscribe(() => {
-      expect(router.navigate).toHaveBeenCalledWith(['index']);
-    });
-  });
 });

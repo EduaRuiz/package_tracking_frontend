@@ -14,7 +14,6 @@ export class DataSignUpService {
   constructor() {}
 
   public setData(email: string, firebaseId: string, name: string): void {
-    console.log(email, firebaseId, name);
     this.data.next({ email, firebaseId, name });
   }
 

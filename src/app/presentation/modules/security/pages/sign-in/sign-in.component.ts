@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { AuthModel } from '@infrastructure/models';
 import { DataSignUpService } from '../../services';
+import { first, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,6 +13,7 @@ import { DataSignUpService } from '../../services';
 export class SignInComponent implements OnInit {
   resetPass!: string[];
   unauthorized!: boolean;
+  user!: AuthModel;
 
   constructor(
     private readonly signInUC: PackageTrackingDelegate,
@@ -24,9 +26,8 @@ export class SignInComponent implements OnInit {
   onGoogle(): void {
     this.signInUC.toSignIn();
     this.signInUC.execute().subscribe({
-      next: (value: unknown) => {
-        console.log(value);
-        this.handlerSuccess(value);
+      next: (response: unknown) => {
+        this.handlerSuccess(response as AuthModel);
       },
       error: (error) => {
         this.handlerError(error);
@@ -34,15 +35,14 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  handlerSuccess(data: any): void {
-    console.log(data?.data?.firebaseId);
-    data?.data?.firebaseId !== undefined &&
+  handlerSuccess(response: AuthModel): void {
+    response?.data?.firebaseId !== undefined &&
       this.dataSignUpService.setData(
-        data.data.email,
-        data.data.firebaseId,
-        data.data.name
+        response.data.email,
+        response.data.firebaseId,
+        response.data.name
       );
-    data?.data?.firebaseId !== undefined
+    response.data.firebaseId !== undefined
       ? this.router.navigate(['index/sign-up'])
       : this.router.navigate(['dashboard']);
   }

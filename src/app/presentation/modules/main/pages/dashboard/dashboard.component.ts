@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PackageTrackingDelegate } from '@application/delegator';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,12 +8,7 @@ import { PackageTrackingDelegate } from '@application/delegator';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private readonly signInUC: PackageTrackingDelegate) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  signOut() {
-    this.signInUC.toSignOut();
-    this.signInUC.execute().subscribe(() => {});
-  }
 }

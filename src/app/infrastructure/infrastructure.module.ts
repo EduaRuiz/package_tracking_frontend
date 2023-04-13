@@ -29,11 +29,6 @@ import { AuthServiceImpl } from './utils';
     { provide: 'IUserDomainService', useClass: UserServiceImpl },
     { provide: 'IAuthDomainService', useClass: AuthServiceImpl },
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-  ],
+  imports: [CommonModule, HttpClientModule],
 })
 export class InfrastructureModule {}

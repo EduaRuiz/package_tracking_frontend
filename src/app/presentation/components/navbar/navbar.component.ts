@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   currentUser!: AuthModel;
 
   constructor(
-    private readonly signOutUC: PackageTrackingDelegate,
+    // private readonly signOutUC: PackageTrackingDelegate,
     private readonly router: Router
   ) {
     this.homePath = ['dashboard'];
@@ -28,9 +28,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {}
 
   signOut(): void {
-    this.signOutUC.toSignOut();
-    this.signOutUC.execute().subscribe({
-      next: () => this.router.navigate(this.signOutPath),
-    });
+    localStorage.clear();
+    // this.signOutUC.toSignOut();
+    // this.signOutUC.execute().subscribe({
+    //   next: () => this.router.navigate(this.signOutPath),
+    // });
   }
 }

@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [SharedGuard],
-    canLoad: [SharedGuard],
+    // canLoad: [SharedGuard],
     children: [
       {
         path: 'sign-in',

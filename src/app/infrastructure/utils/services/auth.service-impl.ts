@@ -21,7 +21,7 @@ export class AuthServiceImpl implements IAuthDomainService<UserCredential> {
   signOut(): Observable<void> {
     return from(signOut(this.auth)).pipe(
       tap(() => {
-        localStorage.removeItem('access_token');
+        localStorage.clear();
       })
     );
   }
