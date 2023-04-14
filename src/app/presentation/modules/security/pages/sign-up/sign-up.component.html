@@ -1,65 +1,51 @@
-<div class="container col-12 col-xxl-7 col-xl-8 col-lg-9 col-md-10 col-sm-11 bg-primary shadow text-white bg-dark mt-3"
-  data-aos="zoom-in" data-aos-duration="1000">
-  <div class="row align-items-stretch" data-aos="zoom-in" data-aos-duration="1000">
-    <div class="col mx-5">
-      <div class="text-center p-4 pb-3">
-        <img src="assets/images/logo.png" width="128" alt="">
-      </div>
-      <form class="needs-validation" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-        <div class="row text-center my-3">
-          <div class="col-12"><app-typewriter [text]="'Please fill in the necessary information to finish'"
-              [speed]="30"></app-typewriter></div>
-        </div>
-        <div class="row">
-          <div class="mb-2 col-12 col-sm-6">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control {{handlerValidators('email')}}" type="email" name="email" id="email"
-              placeholder="Email" formControlName="email" required readonly>
-            <div class="invalid-feedback">
-              {{handlerMessage('email')}}
-            </div>
-          </div>
-          <div class="mb-2 col-12 col-sm-6">
-            <label class="form-label" for="name">name</label>
-            <input class="form-control {{handlerValidators('name')}}" type="name" name="name" id="name"
-              placeholder="name" formControlName="name" required readonly>
-            <div class="invalid-feedback">
-              {{handlerMessage('name')}}
-            </div>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="mb-2 col-12 col-sm-5">
-            <label class="form-label" for="phone">Phone</label>
-            <input class="form-control {{handlerValidators('phone')}}" type="tel" name="phone" id="phone"
-              placeholder="Phone" formControlName="phone" required>
-            <div class="invalid-feedback">
-              {{handlerMessage('phone')}}
-            </div>
-          </div>
-          <div class="mb-2 col-12 col-sm-7">
-            <label class="form-label" for="document">Document</label>
-            <input class="form-control {{handlerValidators('document')}}" type="text" name="document"
-              placeholder="Document" formControlName="document" required>
-            <div class="invalid-feedback">
-              {{handlerMessage('document')}}
-            </div>
-          </div>
-        </div>
-        <div class="row bg-dark rounded-3">
-          <div class="col-8">
-            <button class="btn btn-outline-light w-100 my-1" type="submit">Signup</button>
-          </div>
-          <div class="col-4">
-            <button class="btn btn-outline-danger w-100 my-1" type="button" (click)="clear()">Clear</button>
-          </div>
-        </div>
-        <div class="my-3">
-          <span>Have an account?
-            <a [routerLink]="signIn">SignIn</a>
-          </span>
-        </div>
-      </form>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="container col-12 col-lg-9 col-md-10 col-sm-11 shadow text-white bg-black">
+    <div class="text-center pt-5 pb-3">
+      <img src="assets/images/logo.png" width="128">
     </div>
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="mx-4">
+      <div class="text-center my-3">
+        <app-typewriter [text]="'Please fill in the necessary information to finish'" [speed]="30"></app-typewriter>
+      </div>
+      <div class="row">
+        <div class="mb-2 col-12 col-sm-6">
+          <label for="email">Email</label>
+          <input class="form-control {{handlerValidators('email')}}" type="email" name="email" id="email"
+            placeholder="Email" formControlName="email" required readonly>
+          <div class="invalid-feedback">{{handlerMessage('email')}}</div>
+        </div>
+        <div class="mb-2 col-12 col-sm-6">
+          <label for="name">Name</label>
+          <input class="form-control {{handlerValidators('name')}}" type="name" name="name" id="name" placeholder="Name"
+            formControlName="name" required readonly>
+          <div class="invalid-feedback">{{handlerMessage('name')}}</div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="mb-2 col-12 col-sm-5">
+          <label for="phone">Phone</label>
+          <input class="form-control {{handlerValidators('phone')}}" type="tel" name="phone" id="phone"
+            placeholder="Phone" formControlName="phone" required>
+          <div class="invalid-feedback">{{handlerMessage('phone')}}</div>
+        </div>
+        <div class="mb-2 col-12 col-sm-7">
+          <label for="document">Document</label>
+          <input class="form-control {{handlerValidators('document')}}" type="text" name="document"
+            placeholder="Document" formControlName="document" required>
+          <div class="invalid-feedback">{{handlerMessage('document')}}</div>
+        </div>
+      </div>
+      <div class="row rounded-3">
+        <div class="col-8">
+          <button class="btn btn-outline-light w-100 my-1" type="submit">Signup</button>
+        </div>
+        <div class="col-4">
+          <button class="btn btn-outline-danger w-100 my-1" type="button" (click)="clear()">Clear</button>
+        </div>
+      </div>
+      <div class="my-3">
+        <span>Have an account? <a [routerLink]="signIn">SignIn</a></span>
+      </div>
+    </form>
   </div>
 </div>

@@ -3,8 +3,7 @@ import { IShipmentDomainModel, IUserDomainModel } from './interfaces';
 
 export class ShipmentDomainModel implements IShipmentDomainModel {
   _id?: string;
-  name: string;
-  description: string;
+  description: 'string';
   status: StatusDomainModel;
   createdAt: Date;
   updatedAt: Date;
@@ -13,8 +12,7 @@ export class ShipmentDomainModel implements IShipmentDomainModel {
   destinationAddress: 'string';
 
   constructor(
-    name: string,
-    description: string,
+    description: 'string',
     status: StatusDomainModel,
     createdAt: Date,
     updatedAt: Date,
@@ -24,7 +22,6 @@ export class ShipmentDomainModel implements IShipmentDomainModel {
     _id?: string
   ) {
     this._id = _id;
-    this.name = name;
     this.description = description;
     this.status = status;
     this.createdAt = createdAt;
