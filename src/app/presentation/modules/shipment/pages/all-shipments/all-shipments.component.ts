@@ -21,14 +21,17 @@ export class AllShipmentsComponent implements OnInit {
 
   shipments!: ShipmentModel[];
 
-  constructor(private readonly getShipmentsUC: PackageTrackingDelegate) {
-    console.log(this.shipment);
-  }
+  constructor(private readonly getShipmentsUC: PackageTrackingDelegate) {}
 
   ngOnInit(): void {
     this.getShipmentsUC.toGetShipmentsByUser();
-    this.getShipmentsUC.execute().subscribe((shipments) => {
-      console.log(shipments);
+    this.getShipmentsUC.execute<[ShipmentModel]>().subscribe((shipments) => {
+      shipments.sort((a, b) => {
+        return (
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+      });
+      this.shipments = shipments;
     });
   }
 }

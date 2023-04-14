@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
-import { UserModel } from '@infrastructure/models';
+import { AuthModel, UserModel } from '@infrastructure/models';
 import { DataSignUpService } from '../../services';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ISignUpServiceData } from '../../interfaces';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -60,7 +61,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSignUpService.getData().subscribe((data) => {
+    this.dataSignUpService.getData().subscribe((data: ISignUpServiceData) => {
       this.email = data.email;
       this.name = data.name;
       this.firebaseId = data.firebaseId;
@@ -78,13 +79,14 @@ export class SignUpComponent implements OnInit {
     this.checkoutForm.markAllAsTouched();
     this.signUpUC.toSignUp();
     this.checkoutForm.valid &&
-      this.signUpUC.execute(user).subscribe({
-        next: () => this.handlerSuccess(),
+      this.signUpUC.execute<AuthModel>(user).subscribe({
+        next: (user: AuthModel) => this.handlerSuccess(user),
         error: (err: HttpErrorResponse) => this.handlerError(err),
       });
   }
 
-  handlerSuccess(): void {
+  handlerSuccess(user: AuthModel): void {
+    localStorage.setItem('user', JSON.stringify(user.data));
     this.router.navigate(['dashboard']);
   }
 

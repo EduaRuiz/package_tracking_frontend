@@ -1,2 +1,3 @@
-<app-shipment-detail [shipment]="shipment"></app-shipment-detail>
-<app-shipment-detail></app-shipment-detail>
+<ng-container *ngFor="let shipment of shipments">
+  <app-shipment-detail [shipment]="shipment"></app-shipment-detail>
+</ng-container>

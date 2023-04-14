@@ -6,7 +6,7 @@ import {
   UpdateShipmentCommand,
 } from '@infrastructure/commands';
 import { ShipmentModel } from '@infrastructure/models';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()

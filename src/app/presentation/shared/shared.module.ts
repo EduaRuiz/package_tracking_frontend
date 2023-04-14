@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
-import { PhoneNumberPipe, RelativeTimePipe } from './pipes';
+import { IsoDatePipe } from './pipes';
 
 @NgModule({
-  declarations: [PhoneNumberPipe, RelativeTimePipe],
-  imports: [CommonModule, FormsModule],
-  exports: [PhoneNumberPipe, RelativeTimePipe],
+  declarations: [IsoDatePipe],
+  imports: [CommonModule],
+  exports: [IsoDatePipe],
 })
 export class SharedModule {}

@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { AuthModel } from '@infrastructure/models';
 import { DataSignUpService } from '../../services';
-import { first, map, switchMap, tap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '@presentation/shared/services';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,18 +19,19 @@ export class SignInComponent implements OnInit {
   constructor(
     private readonly signInUC: PackageTrackingDelegate,
     private readonly router: Router,
-    private dataSignUpService: DataSignUpService
+    private readonly dataSignUpService: DataSignUpService,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {}
 
   onGoogle(): void {
     this.signInUC.toSignIn();
-    this.signInUC.execute().subscribe({
-      next: (response: unknown) => {
+    this.signInUC.execute<AuthModel>().subscribe({
+      next: (response: AuthModel) => {
         this.handlerSuccess(response as AuthModel);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         this.handlerError(error);
       },
     });
@@ -41,6 +43,14 @@ export class SignInComponent implements OnInit {
         response.data.email,
         response.data.firebaseId,
         response.data.name
+      );
+    response.data.firebaseId === undefined &&
+      localStorage.setItem('user', JSON.stringify(response.data));
+    response.data.firebaseId === undefined &&
+      this.notificationService.showMessage(
+        'Success',
+        `Welcome ${response.data.name}`,
+        'success'
       );
     response.data.firebaseId !== undefined
       ? this.router.navigate(['index/sign-up'])

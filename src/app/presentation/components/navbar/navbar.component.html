@@ -1,17 +1,8 @@
 <div class="div p-3">
   <nav class="navbar bg-body-tertiary fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <!-- <div class=" dropdown">
-        <a class="navbar-brand dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Options
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]="signOutPath" (click)="signOut()">SignOut</a></li>
-        </ul>
-      </div> -->
       <div class="text-white h3">
-
-          <app-typewriter [text]="'Welcome!!!!!'" [speed]="100"></app-typewriter>
+        <app-typewriter [text]="'Welcome!!!!!'" [speed]="100"></app-typewriter>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar">
@@ -27,6 +18,9 @@
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" [routerLink]="homePath" role="button">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="newShipmentPath" role="button">NewShipment</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" (click)="signOut()" role="button">SignOut</a>

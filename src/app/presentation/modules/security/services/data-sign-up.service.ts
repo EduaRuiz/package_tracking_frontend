@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ISignUpServiceData } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataSignUpService {
-  private data = new BehaviorSubject<{
-    email: string;
-    firebaseId: string;
-    name: string;
-  }>({ email: '', firebaseId: '', name: '' });
+  private data = new BehaviorSubject<ISignUpServiceData>({
+    email: '',
+    firebaseId: '',
+    name: '',
+  });
 
   constructor() {}
 
@@ -17,11 +18,7 @@ export class DataSignUpService {
     this.data.next({ email, firebaseId, name });
   }
 
-  public getData(): Observable<{
-    email: string;
-    firebaseId: string;
-    name: string;
-  }> {
+  public getData(): Observable<ISignUpServiceData> {
     return this.data.asObservable();
   }
 }

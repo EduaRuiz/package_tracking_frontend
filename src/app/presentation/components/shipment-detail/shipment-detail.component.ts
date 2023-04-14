@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { ShipmentModel } from '@infrastructure/models';
+import { NotificationService } from '@presentation/shared/services';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -12,6 +14,7 @@ export class ShipmentDetailComponent implements OnInit {
   shipmentForm!: FormGroup;
   editing = false;
   @Input() shipment: ShipmentModel = {
+    _id: '',
     originAddress: '',
     destinationAddress: '',
     status: { name: '' },
@@ -21,7 +24,8 @@ export class ShipmentDetailComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly updateShipmentUC: PackageTrackingDelegate
+    private readonly updateShipmentUC: PackageTrackingDelegate,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +58,20 @@ export class ShipmentDetailComponent implements OnInit {
     this.editing = false;
     this.shipmentForm.get('originAddress')?.disable();
     this.shipmentForm.get('destinationAddress')?.disable();
+    this.updateShipmentUC.toUpdateShipment();
+    const updateShipmentCommand = {
+      _id: this.shipment._id,
+      originAddress: this.shipmentForm.get('originAddress')?.value,
+      destinationAddress: this.shipmentForm.get('destinationAddress')?.value,
+    };
+    this.updateShipmentUC
+      .execute<ShipmentModel>(updateShipmentCommand, updateShipmentCommand._id)
+      .subscribe({
+        next: (shipment: ShipmentModel) => {
+          this.handleSuccess(shipment);
+        },
+        error: (error) => this.handleError(error),
+      });
   }
 
   cancel() {
@@ -75,5 +93,17 @@ export class ShipmentDetailComponent implements OnInit {
 
   getInvalidClass(controlName: string): string {
     return this.isInvalid(controlName) ? 'is-invalid' : '';
+  }
+
+  handleError(error: HttpErrorResponse): void {
+    this.notificationService.showMessage('Error', error.error.message, 'error');
+  }
+
+  handleSuccess(shipment: ShipmentModel): void {
+    this.notificationService.showMessage(
+      'Success',
+      `Shipment updated!, Id: ${shipment._id}`,
+      'success'
+    );
   }
 }

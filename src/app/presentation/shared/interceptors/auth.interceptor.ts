@@ -4,10 +4,10 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
+  HttpErrorResponse,
 } from '@angular/common/http';
 
-import { Observable, filter, map, tap } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
@@ -22,6 +22,11 @@ export class AuthInterceptor implements HttpInterceptor {
         .set('Authorization', `Bearer ${authToken}`)
         .set('Content-Type', 'application/json'),
     });
-    return next.handle(authReq);
+    return next.handle(authReq).pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: HttpErrorResponse): Observable<never> {
+    console.warn('We have an error: ', error);
+    return throwError(() => error);
   }
 }

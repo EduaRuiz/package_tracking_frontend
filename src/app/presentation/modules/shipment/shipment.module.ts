@@ -7,10 +7,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '@presentation/components';
 import { ShipmentRoutingModule } from '.';
 import { AllShipmentsComponent } from './pages/all-shipments/all-shipments.component';
+import { NewShipmentComponent } from './pages/new-shipment/new-shipment.component';
 
 @NgModule({
   declarations: [
-    AllShipmentsComponent
+    AllShipmentsComponent,
+    NewShipmentComponent
   ],
   imports: [
     ShipmentRoutingModule,

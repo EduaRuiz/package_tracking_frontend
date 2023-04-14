@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="card-title">Nuevo Shipment</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-6">
+            <label for="description" class="form-label">Descripción:</label>
+            <input type="text" class="form-control" id="description" formControlName="description"
+              [ngClass]="getInvalidClass('description')">
+            <div *ngIf="isInvalid('description')">
+              <small class="form-text text-danger">Description is required and must be at least 10 characters.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="originAddress" class="form-label">Dirección de origen:</label>
+            <input type="text" class="form-control" id="originAddress" formControlName="originAddress"
+              [ngClass]="getInvalidClass('originAddress')">
+            <div *ngIf="isInvalid('originAddress')">
+              <small class="form-text text-danger">Origin address is required and must be at least 10
+                characters.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="destinationAddress" class="form-label">Dirección de destino:</label>
+            <input type="text" class="form-control" id="destinationAddress" formControlName="destinationAddress"
+              [ngClass]="getInvalidClass('destinationAddress')">
+            <div *ngIf="isInvalid('destinationAddress')">
+              <small class="form-text text-danger">Destination address is required and must be at least 10
+                characters.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>
