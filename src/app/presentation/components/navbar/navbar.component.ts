@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   homePath!: string[];
   signOutPath!: string[];
   newShipmentPath!: string[];
+  userPath!: string[];
   currentUser!: AuthModel;
 
   constructor(
@@ -23,6 +24,7 @@ export class NavbarComponent implements OnInit {
     this.homePath = ['dashboard'];
     this.signOutPath = ['../index'];
     this.newShipmentPath = ['../dashboard/register'];
+    this.userPath = ['../dashboard/user'];
     this.currentUser = {
       data: JSON.parse(localStorage.getItem('user') ?? JSON.stringify('')),
       token: '',

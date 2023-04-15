@@ -9,12 +9,17 @@ import {
   SignUpCommand,
   UpdateUserCommand,
 } from '@infrastructure/commands';
+import { UserDomainModel } from '@domain/models';
 
 @Injectable()
 export class UserServiceImpl implements IUserDomainService {
   private readonly _url: string = environment.apiUrl;
 
   constructor(private readonly http: HttpClient) {}
+
+  getUser(userId: string): Observable<UserDomainModel> {
+    return this.http.get<UserDomainModel>(`${this._url}/user/${userId}`);
+  }
 
   refreshToken(): Observable<AuthModel> {
     return this.http.get<AuthModel>(`${this._url}/user/token/refresh`).pipe(

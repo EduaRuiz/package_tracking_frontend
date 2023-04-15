@@ -10,6 +10,7 @@ export interface IUserDomainService {
   signIn(command: ISignInDomainCommand): Observable<AuthDomainModel>;
   signUp(command: ISignUpDomainCommand): Observable<AuthDomainModel>;
   updateUser(command: IUpdateUserDomainCommand): Observable<UserDomainModel>;
+  getUser(userId: string): Observable<UserDomainModel>;
   deleteUser(userId: string): Observable<UserDomainModel>;
   refreshToken(): Observable<AuthDomainModel>;
 }

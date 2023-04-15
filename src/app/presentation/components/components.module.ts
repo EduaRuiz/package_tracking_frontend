@@ -6,7 +6,6 @@ import { ShipmentDetailComponent } from './shipment-detail/shipment-detail.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IsoDatePipe } from './pipes';
-import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +13,6 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     NavbarComponent,
     ShipmentDetailComponent,
     IsoDatePipe,
-    UserDetailComponent,
   ],
   imports: [RouterModule, FormsModule, CommonModule, ReactiveFormsModule],
   exports: [TypewriterComponent, NavbarComponent, ShipmentDetailComponent],

@@ -22,6 +22,7 @@ import {
   UpdateUserUseCase,
   RefreshTokenUseCase,
   SignOutUseCase,
+  GetUserUseCase,
 } from '../use-cases';
 
 export class PackageTrackingDelegate implements IUseCase<any> {
@@ -84,5 +85,9 @@ export class PackageTrackingDelegate implements IUseCase<any> {
 
   toSignOut(): void {
     this.delegate = new SignOutUseCase(this.auth$);
+  }
+
+  toGetUser(): void {
+    this.delegate = new GetUserUseCase(this.user$);
   }
 }

@@ -13,14 +13,7 @@ import { NotificationService } from '@presentation/shared/services';
 export class ShipmentDetailComponent implements OnInit {
   shipmentForm!: FormGroup;
   editing = false;
-  @Input() shipment: ShipmentModel = {
-    _id: '',
-    originAddress: '',
-    destinationAddress: '',
-    status: { name: '' },
-    createdAt: '',
-    updatedAt: '',
-  } as unknown as ShipmentModel;
+  @Input() shipment!: ShipmentModel;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -30,10 +23,7 @@ export class ShipmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.shipmentForm = this.formBuilder.group({
-      description: [
-        { value: this.shipment.description, disabled: true },
-        [Validators.required, Validators.minLength(10)],
-      ],
+      description: [{ value: this.shipment.description, disabled: true }],
       originAddress: [
         { value: this.shipment.originAddress, disabled: !this.editing },
         [Validators.required, Validators.minLength(10)],
@@ -55,23 +45,34 @@ export class ShipmentDetailComponent implements OnInit {
   }
 
   save() {
-    this.editing = false;
-    this.shipmentForm.get('originAddress')?.disable();
-    this.shipmentForm.get('destinationAddress')?.disable();
-    this.updateShipmentUC.toUpdateShipment();
-    const updateShipmentCommand = {
-      _id: this.shipment._id,
-      originAddress: this.shipmentForm.get('originAddress')?.value,
-      destinationAddress: this.shipmentForm.get('destinationAddress')?.value,
-    };
-    this.updateShipmentUC
-      .execute<ShipmentModel>(updateShipmentCommand, updateShipmentCommand._id)
-      .subscribe({
-        next: (shipment: ShipmentModel) => {
-          this.handleSuccess(shipment);
-        },
-        error: (error) => this.handleError(error),
-      });
+    if (this.shipmentForm.valid) {
+      this.editing = false;
+      this.shipmentForm.get('originAddress')?.disable();
+      this.shipmentForm.get('destinationAddress')?.disable();
+      this.updateShipmentUC.toUpdateShipment();
+      const updateShipmentCommand = {
+        _id: this.shipment._id,
+        originAddress: this.shipmentForm.get('originAddress')?.value,
+        destinationAddress: this.shipmentForm.get('destinationAddress')?.value,
+      };
+      if (
+        updateShipmentCommand.destinationAddress !==
+          this.shipment.destinationAddress ||
+        updateShipmentCommand.originAddress !== this.shipment.originAddress
+      ) {
+        this.updateShipmentUC
+          .execute<ShipmentModel>(
+            updateShipmentCommand,
+            updateShipmentCommand._id
+          )
+          .subscribe({
+            next: (shipment: ShipmentModel) => {
+              this.handleSuccess(shipment);
+            },
+            error: (error) => this.handleError(error),
+          });
+      }
+    }
   }
 
   cancel() {
@@ -96,7 +97,11 @@ export class ShipmentDetailComponent implements OnInit {
   }
 
   handleError(error: HttpErrorResponse): void {
-    this.notificationService.showMessage('Error', error.error.message, 'error');
+    this.notificationService.showMessage(
+      'Error',
+      error.error.message[0],
+      'error'
+    );
   }
 
   handleSuccess(shipment: ShipmentModel): void {

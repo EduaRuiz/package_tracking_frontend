@@ -3,6 +3,7 @@ export * from './delete-user.use-case';
 export * from './get-shipment.use-case';
 export * from './get-shipments-by-user.use-case';
 export * from './get-status.use-case';
+export * from './get-user.use-case';
 export * from './interface';
 export * from './refresh-token.use-case';
 export * from './register-new-shipment.use-case';

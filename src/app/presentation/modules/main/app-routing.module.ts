@@ -14,8 +14,18 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('../shipment/shipment.module').then((m) => m.ShipmentModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('../shipment/shipment.module').then((m) => m.ShipmentModule),
+      },
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('../user/user.module').then((m) => m.UserModule),
+      },
+    ],
   },
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: '**', redirectTo: 'index', pathMatch: 'full' },

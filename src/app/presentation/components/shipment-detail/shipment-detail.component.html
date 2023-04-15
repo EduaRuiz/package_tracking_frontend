@@ -1,72 +1,81 @@
-<div class="card">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="card-title">Shipment: 
-      <app-typewriter [text]="shipment._id??''" [speed]="100"></app-typewriter>
-    </h5>
-    <div *ngIf="!editing">
-      <button class="btn btn-primary" (click)="edit()">Edit</button>
-    </div>
-    <div *ngIf="editing">
-      <button class="btn btn-success me-2" (click)="save()">Save</button>
-      <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-    </div>
-  </div>
-  <div class="card-body">
-    <form [formGroup]="shipmentForm">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="mb-6">
-            <label for="description" class="form-label">Description:</label>
-            <input type="text" class="form-control" id="description" formControlName="description" readonly>
-          </div>
-        </div>
+<div *ngIf="shipment">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="card-title">Shipment:
+        <app-typewriter [text]="shipment._id??''" [speed]="100"></app-typewriter>
+      </h5>
+      <div *ngIf="!editing">
+        <button class="btn btn-primary" (click)="edit()">Edit</button>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="originAddress" class="form-label">Origin Address:</label>
-            <input type="text" class="form-control" id="originAddress" formControlName="originAddress"
-              [ngClass]="getInvalidClass('originAddress')">
-            <div *ngIf="isInvalid('originAddress')">
-              <small class="form-text text-danger">Origin Address is required and must be at least 10
-                characters..</small>
+      <div *ngIf="editing">
+        <button class="btn btn-success me-2" (click)="save()">Save</button>
+        <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="shipmentForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-6">
+              <label for="description" class="form-label">Description:</label>
+              <input type="text" class="form-control" id="description" formControlName="description" readonly>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="destinationAddress" class="form-label">Destination Address:</label>
-            <input type="text" class="form-control" id="destinationAddress" formControlName="destinationAddress"
-              [ngClass]="getInvalidClass('destinationAddress')">
-            <div *ngIf="isInvalid('destinationAddress')">
-              <small class="form-text text-danger">Destination Address is required and must be at least 10
-                characters..</small>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="originAddress" class="form-label">Origin Address:</label>
+              <input type="text" class="form-control" id="originAddress" formControlName="originAddress"
+                [ngClass]="getInvalidClass('originAddress')">
+              <div *ngIf="isInvalid('originAddress')">
+                <small class="form-text text-danger">
+                  {{ shipmentForm.get('originAddress')?.errors?.['required'] ? 'Origin Address is required.' : '' }}
+                  {{ shipmentForm.get('originAddress')?.errors?.['minlength'] ? 'Origin Address must be at least 10
+                  characters.' : '' }}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="destinationAddress" class="form-label">Destination Address:</label>
+              <input type="text" class="form-control" id="destinationAddress" formControlName="destinationAddress"
+                [ngClass]="getInvalidClass('destinationAddress')">
+              <div *ngIf="isInvalid('destinationAddress')">
+                <small class="form-text text-danger">
+                  {{ shipmentForm.get('destinationAddress')?.errors?.['required'] ? 'Destination Address is required.' :
+                  '' }}
+                  {{ shipmentForm.get('destinationAddress')?.errors?.['minlength'] ? 'Destination Address must be at
+                  least 10 characters.' : '' }}
+                </small>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="status" class="form-label">Status:</label>
-            <span id="status"> {{ shipmentForm.get('status')?.value}}</span>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="status" class="form-label">Status:</label>
+              <span id="status"> {{ shipmentForm.get('status')?.value}}</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="createdAt" class="form-label">Created At:</label>
+              <span id="createdAt"> {{ shipmentForm.get('createdAt')?.value | isoDate }}</span>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="createdAt" class="form-label">Created At:</label>
-            <span id="createdAt"> {{ shipmentForm.get('createdAt')?.value | isoDate }}</span>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="updatedAt" class="form-label">Updated At:</label>
+              <span id="updatedAt"> {{ shipmentForm.get('updatedAt')?.value | isoDate }}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="updatedAt" class="form-label">Updated At:</label>
-            <span id="updatedAt"> {{ shipmentForm.get('updatedAt')?.value | isoDate }}</span>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

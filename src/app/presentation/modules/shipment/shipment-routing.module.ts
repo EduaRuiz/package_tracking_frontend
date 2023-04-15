@@ -10,8 +10,7 @@ const routes: Routes = [
     children: [
       { path: '', component: AllShipmentsComponent },
       { path: 'register', component: NewShipmentComponent },
-      //     { path: 'update', component: 'UpdateShipmentComponent' },
-      //     { path: '', redirectTo: '/index/sign-in', pathMatch: 'full' },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },
 ];

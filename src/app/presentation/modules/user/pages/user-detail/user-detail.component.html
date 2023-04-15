@@ -1,0 +1,72 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="card-title">User: {{ user.name }}</h5>
+    <div *ngIf="!editing">
+      <button class="btn btn-primary" (click)="edit()">Edit</button>
+    </div>
+    <div *ngIf="editing">
+      <button class="btn btn-success me-2" (click)="save()">Save</button>
+      <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div *ngIf="userForm">
+      <form [formGroup]="userForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control" id="name" formControlName="name" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <input type="text" class="form-control" id="email" formControlName="email" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="document" class="form-label">Document:</label>
+              <input type="text" class="form-control" id="document" formControlName="document" [readonly]="!editing"
+                [ngClass]="getInvalidClass('document')">
+                <div *ngIf="isInvalid('document')">
+                  <small class="form-text text-danger">
+                    {{ userForm.get('document')?.errors?.['required'] ? 'Document is required.' : '' }}
+                    {{ userForm.get('document')?.errors?.['minlength'] ? 'Document must be at least 7 characters.' : '' }}
+                    {{ userForm.get('document')?.errors?.['maxlength'] ? 'Document must be at most 10 characters.' : '' }}
+                    {{ userForm.get('document')?.errors?.['pattern'] ? 'Document must be a number.' : '' }}
+                  </small>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone:</label>
+              <input type="text" class="form-control" id="phone" formControlName="phone" [readonly]="!editing"
+                [ngClass]="getInvalidClass('phone')">
+                <div *ngIf="isInvalid('phone')">
+                  <small class="form-text text-danger">
+                    {{ userForm.get('phone')?.errors?.['required'] ? 'Phone is required.' : '' }}
+                    {{ userForm.get('phone')?.errors?.['minlength'] ? 'Phone must be at least 7 characters.' : '' }}
+                    {{ userForm.get('phone')?.errors?.['maxlength'] ? 'Phone must be at most 10 characters.' : '' }}
+                    {{ userForm.get('phone')?.errors?.['pattern'] ? 'Phone must be a number.' : '' }}
+                  </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="_id" class="form-label">ID:</label>
+              <input type="text" class="form-control" id="_id" formControlName="_id" readonly>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
