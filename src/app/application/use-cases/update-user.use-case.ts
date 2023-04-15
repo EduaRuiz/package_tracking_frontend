@@ -8,10 +8,6 @@ export class UpdateUserUseCase implements IUseCase<UserDomainModel> {
   constructor(private readonly user$: IUserDomainService) {}
 
   execute(command: IUpdateUserDomainCommand): Observable<UserDomainModel> {
-    return this.user$.updateUser(command).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.user$.updateUser(command);
   }
 }

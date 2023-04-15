@@ -27,7 +27,6 @@ export class UserDetailComponent implements OnInit {
     this.userUC.toGetUser();
     this.userUC.execute<UserModel>(this.user._id).subscribe({
       next: (user: UserModel) => {
-        console.log(user);
         this.user = user;
         this.userForm = this.formBuilder.group({
           name: [{ value: user.name, disabled: true }],

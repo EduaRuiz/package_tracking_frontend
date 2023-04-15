@@ -6,11 +6,6 @@ export class DeleteUserUseCase implements IUseCase<boolean> {
   constructor(private readonly user$: IUserDomainService) {}
 
   execute(userId: string): Observable<boolean> {
-    return this.user$.deleteUser(userId).pipe(
-      map(() => true),
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.user$.deleteUser(userId).pipe(map(() => true));
   }
 }

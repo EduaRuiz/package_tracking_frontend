@@ -7,10 +7,6 @@ export class GetShipmentUseCase implements IUseCase<IShipmentDomainModel> {
   constructor(private readonly shipment$: IShipmentDomainService) {}
 
   execute(shipmentId: string): Observable<IShipmentDomainModel> {
-    return this.shipment$.getShipment(shipmentId).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.shipment$.getShipment(shipmentId);
   }
 }

@@ -8,10 +8,6 @@ export class SignUpUseCase implements IUseCase<AuthDomainModel> {
   constructor(private readonly user$: IUserDomainService) {}
 
   execute(command: ISignUpDomainCommand): Observable<AuthDomainModel> {
-    return this.user$.signUp(command).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.user$.signUp(command);
   }
 }

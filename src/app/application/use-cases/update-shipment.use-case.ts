@@ -11,10 +11,6 @@ export class UpdateShipmentUseCase implements IUseCase<ShipmentDomainModel> {
     command: IUpdateShipmentDomainCommand,
     shipmentId: string
   ): Observable<ShipmentDomainModel> {
-    return this.shipment$.updateShipment(command, shipmentId).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.shipment$.updateShipment(command, shipmentId);
   }
 }

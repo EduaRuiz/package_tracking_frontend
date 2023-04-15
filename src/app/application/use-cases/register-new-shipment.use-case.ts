@@ -10,10 +10,6 @@ export class RegisterNewShipmentUseCase
   constructor(private readonly shipment$: IShipmentDomainService) {}
 
   execute(command: INewShipmentDomainCommand): Observable<ShipmentDomainModel> {
-    return this.shipment$.createShipment(command).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.shipment$.createShipment(command);
   }
 }

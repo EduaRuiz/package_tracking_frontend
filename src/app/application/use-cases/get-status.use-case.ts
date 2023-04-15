@@ -7,10 +7,6 @@ export class GetStatusUseCase implements IUseCase<IStatusDomainModel> {
   constructor(private readonly status$: IStatusDomainService) {}
 
   execute(statusId: string): Observable<IStatusDomainModel> {
-    return this.status$.getStatus(statusId).pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.status$.getStatus(statusId);
   }
 }

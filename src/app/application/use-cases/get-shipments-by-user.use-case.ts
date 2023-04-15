@@ -9,10 +9,6 @@ export class GetShipmentsByUserUseCase
   constructor(private readonly shipment$: IShipmentDomainService) {}
 
   execute(): Observable<IShipmentDomainModel[]> {
-    return this.shipment$.getShipmentsByUser().pipe(
-      catchError((error: Error) => {
-        throw error;
-      })
-    );
+    return this.shipment$.getShipmentsByUser();
   }
 }
