@@ -23,9 +23,10 @@ export class NavbarComponent implements OnInit {
     this.homePath = ['dashboard'];
     this.signOutPath = ['../index'];
     this.newShipmentPath = ['../dashboard/register'];
-    this.currentUser = JSON.parse(
-      localStorage.getItem('user') ?? JSON.stringify('')
-    );
+    this.currentUser = {
+      data: JSON.parse(localStorage.getItem('user') ?? JSON.stringify('')),
+      token: '',
+    };
   }
 
   ngOnInit(): void {}

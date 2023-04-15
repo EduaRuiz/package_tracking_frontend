@@ -6,7 +6,7 @@ import { AuthModel, UserModel } from '@infrastructure/models';
 import { DataSignUpService } from '../../services';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ISignUpServiceData } from '../../interfaces';
-// import Swal from 'sweetalert2';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,7 +25,8 @@ export class SignUpComponent implements OnInit {
     private readonly signUpUC: PackageTrackingDelegate,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private dataSignUpService: DataSignUpService
+    private readonly dataSignUpService: DataSignUpService,
+    private readonly notificationService: NotificationService
   ) {
     this.signIn = ['../sign-in'];
     this.signUp = ['../sign-up'];
@@ -87,16 +88,20 @@ export class SignUpComponent implements OnInit {
 
   handlerSuccess(user: AuthModel): void {
     localStorage.setItem('user', JSON.stringify(user.data));
+    this.notificationService.showMessage(
+      'success',
+      `Welcome ${user.data.name}, you have successfully registered`,
+      'success'
+    );
     this.router.navigate(['dashboard']);
   }
 
   handlerError(err: HttpErrorResponse): void {
-    console.error(err.error.message, 'handlerError');
-    // Swal.fire({
-    //   icon: 'error',
-    //   title: 'Oops...',
-    //   text: err?.error?.message,
-    // });
+    this.notificationService.showMessage(
+      'error',
+      err?.error?.message ?? 'Something went wrong',
+      'error'
+    );
   }
 
   clear() {

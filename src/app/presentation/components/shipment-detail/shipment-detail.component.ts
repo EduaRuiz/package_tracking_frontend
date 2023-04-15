@@ -32,15 +32,15 @@ export class ShipmentDetailComponent implements OnInit {
     this.shipmentForm = this.formBuilder.group({
       description: [
         { value: this.shipment.description, disabled: true },
-        Validators.required,
+        [Validators.required, Validators.minLength(10)],
       ],
       originAddress: [
         { value: this.shipment.originAddress, disabled: !this.editing },
-        Validators.required,
+        [Validators.required, Validators.minLength(10)],
       ],
       destinationAddress: [
         { value: this.shipment.destinationAddress, disabled: !this.editing },
-        Validators.required,
+        [Validators.required, Validators.minLength(10)],
       ],
       status: [{ value: this.shipment.status.name, disabled: true }],
       createdAt: [{ value: this.shipment.createdAt, disabled: true }],

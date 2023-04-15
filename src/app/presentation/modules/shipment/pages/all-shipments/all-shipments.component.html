@@ -1,3 +1,24 @@
-<ng-container *ngFor="let shipment of shipments">
-  <app-shipment-detail [shipment]="shipment"></app-shipment-detail>
+<ng-container *ngIf="showContent">
+  <ng-container *ngIf="shipments.length != 0; else noShipments">
+    <div class="row">
+      <div class="col-12 col-lg-6 my-2" *ngFor="let shipment of shipments">
+        <app-shipment-detail [shipment]="shipment"></app-shipment-detail>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noShipments>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <p>
+        <app-typewriter [text]="'You currently have no shipments registered'" [speed]="30"></app-typewriter>
+      </p>
+      <button class="btn btn-success" [routerLink]="'../dashboard/register'">Register new shipment</button>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-container *ngIf="!showContent">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="shipment-placeholder"></div>
+    <p>Loading shipments...</p>
+  </div>
 </ng-container>

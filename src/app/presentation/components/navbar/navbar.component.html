@@ -1,8 +1,8 @@
 <div class="div p-3">
   <nav class="navbar bg-body-tertiary fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <div class="text-white h3">
-        <app-typewriter [text]="'Welcome!!!!!'" [speed]="100"></app-typewriter>
+      <div class="text-white h6">
+        <app-typewriter [text]="'Welcome!, '+currentUser.data.name" [speed]="10"></app-typewriter>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar">

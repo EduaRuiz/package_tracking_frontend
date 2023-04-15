@@ -45,8 +45,8 @@ export class NewShipmentComponent implements OnInit {
       this.newShipmentUC.execute(shipment).subscribe({
         next: () => this.handleSuccess(),
         error: (error: HttpErrorResponse) => this.handleError(error),
+        complete: () => this.shipmentForm.reset(),
       });
-    this.router.navigate(['dashboard']);
   }
 
   cancel(): void {

@@ -19,7 +19,9 @@ export class AllShipmentsComponent implements OnInit {
     'destinationAddress' as any
   );
 
-  shipments!: ShipmentModel[];
+  shipments: ShipmentModel[] = [];
+  loading = true;
+  showContent = false;
 
   constructor(private readonly getShipmentsUC: PackageTrackingDelegate) {}
 
@@ -32,6 +34,10 @@ export class AllShipmentsComponent implements OnInit {
         );
       });
       this.shipments = shipments;
+      this.loading = false;
+      setTimeout(() => {
+        this.showContent = true;
+      }, 1000);
     });
   }
 }
