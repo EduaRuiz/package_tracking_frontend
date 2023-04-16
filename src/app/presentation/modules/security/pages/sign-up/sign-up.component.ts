@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
@@ -25,6 +25,7 @@ export class SignUpComponent implements OnInit {
     private readonly signUpUC: PackageTrackingDelegate,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
+    private readonly ngZone: NgZone,
     private readonly dataSignUpService: DataSignUpService,
     private readonly notificationService: NotificationService
   ) {
@@ -93,7 +94,7 @@ export class SignUpComponent implements OnInit {
       `Welcome ${user.data.name}, you have successfully registered`,
       'success'
     );
-    this.router.navigate(['dashboard']);
+    this.ngZone.run(() => this.router.navigate(['dashboard']));
   }
 
   handlerError(err: HttpErrorResponse): void {

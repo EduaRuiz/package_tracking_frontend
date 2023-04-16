@@ -12,8 +12,6 @@ import { NotificationService } from '@presentation/shared/services';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  resetPass!: string[];
-  unauthorized!: boolean;
   user!: AuthModel;
 
   constructor(
@@ -57,8 +55,8 @@ export class SignInComponent implements OnInit {
       : this.router.navigate(['dashboard']);
   }
 
-  handlerError(err: any): void {
-    console.error(err);
-    this.unauthorized = true;
+  handlerError(err: HttpErrorResponse): void {
+    err.error.message !== 'User not found' &&
+      this.notificationService.showMessage('Error', err.error.message, 'error');
   }
 }

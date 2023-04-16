@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { AuthModel } from '@infrastructure/models';
@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private readonly signOutUC: PackageTrackingDelegate,
     private readonly router: Router,
+    private readonly ngZone: NgZone,
     private readonly notificationService: NotificationService
   ) {
     this.homePath = ['dashboard'];
@@ -42,7 +43,9 @@ export class NavbarComponent implements OnInit {
           'You have been signed out',
           'success'
         );
-        this.router.navigate(this.signOutPath);
+        this.ngZone.run(() => {
+          this.router.navigate(this.signOutPath);
+        });
       },
       error: (error) => {
         this.notificationService.showMessage('Error', error.message, 'error');

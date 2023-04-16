@@ -49,7 +49,6 @@ export class ShipmentDetailComponent implements OnInit {
       this.editing = false;
       this.shipmentForm.get('originAddress')?.disable();
       this.shipmentForm.get('destinationAddress')?.disable();
-      this.updateShipmentUC.toUpdateShipment();
       const updateShipmentCommand = {
         _id: this.shipment._id,
         originAddress: this.shipmentForm.get('originAddress')?.value,
@@ -60,6 +59,7 @@ export class ShipmentDetailComponent implements OnInit {
           this.shipment.destinationAddress ||
         updateShipmentCommand.originAddress !== this.shipment.originAddress
       ) {
+        this.updateShipmentUC.toUpdateShipment();
         this.updateShipmentUC
           .execute<ShipmentModel>(
             updateShipmentCommand,

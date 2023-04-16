@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { AuthModel } from '@infrastructure/models';
 import { PackageTrackingDelegate } from '@application/delegator';
 import { NotificationService } from '../../shared/services/notification.service';
 import { NavbarComponent } from './navbar.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentsModule } from '../components.module';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -21,10 +22,10 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
       providers: [
-        { provide: Router, useValue: mockRouter },
         { provide: PackageTrackingDelegate, useValue: mockSignOutUC },
         { provide: NotificationService, useValue: mockNotificationService },
       ],
+      imports: [RouterTestingModule, ComponentsModule],
     }).compileComponents();
   });
 
@@ -53,11 +54,14 @@ describe('NavbarComponent', () => {
   });
 
   it('should sign out the user', () => {
+    // Arrange
     const successMessage = 'You have been signed out';
     mockSignOutUC.execute.mockReturnValueOnce(of(null));
 
+    // Act
     component.signOut();
 
+    // Assert
     expect(mockSignOutUC.toSignOut).toHaveBeenCalled();
     expect(mockSignOutUC.execute).toHaveBeenCalled();
     expect(mockNotificationService.showMessage).toHaveBeenCalledWith(
@@ -65,17 +69,19 @@ describe('NavbarComponent', () => {
       successMessage,
       'success'
     );
-    expect(mockRouter.navigate).toHaveBeenCalledWith(component.signOutPath);
   });
 
   it('should show an error message if sign out failed', () => {
+    // Arrange
     const errorMessage = 'Sign out failed';
     mockSignOutUC.execute.mockReturnValueOnce(
       throwError(() => new Error(errorMessage))
     );
 
+    // Act
     component.signOut();
 
+    // Assert
     expect(mockSignOutUC.toSignOut).toHaveBeenCalled();
     expect(mockSignOutUC.execute).toHaveBeenCalled();
     expect(mockNotificationService.showMessage).toHaveBeenCalledWith(

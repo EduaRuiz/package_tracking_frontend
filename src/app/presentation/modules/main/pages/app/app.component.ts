@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PackageTrackingDelegate } from '@application/delegator';
 
 @Component({
   selector: 'app-root',

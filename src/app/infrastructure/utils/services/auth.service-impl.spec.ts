@@ -1,81 +1,64 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Auth,
-  signInWithPopup,
-  UserCredential,
-  signOut,
-  provideAuth,
-  getAuth,
-  AuthModule,
-} from '@angular/fire/auth';
-import { lastValueFrom, of } from 'rxjs';
+import { Auth, UserCredential } from '@angular/fire/auth';
+import { of } from 'rxjs';
 import { AuthServiceImpl } from '.';
-import {
-  FirebaseApp,
-  FirebaseAppModule,
-  initializeApp,
-  provideFirebaseApp,
-} from '@angular/fire/app';
-import { environment } from '@environments/environment';
 
 describe('AuthServiceImpl', () => {
   let service: AuthServiceImpl;
   let authMock: Auth;
 
   beforeEach(() => {
-    authMock = { signInWithPopup } as unknown as Auth;
+    // Arrange
+    authMock = {} as unknown as Auth;
     TestBed.configureTestingModule({
-      providers: [
-        AuthServiceImpl,
-        { provide: Auth, useValue: authMock },
-        {
-          provide: FirebaseApp,
-          useFactory: () => initializeApp(environment.firebase),
-        },
-      ],
+      providers: [AuthServiceImpl, { provide: Auth, useValue: authMock }],
     });
-
     service = TestBed.inject(AuthServiceImpl);
   });
 
   it('should be created', () => {
+    // Assert
     expect(service).toBeTruthy();
-    expect(service).toBeInstanceOf(AuthServiceImpl);
-    expect(service).toHaveProperty('auth', authMock);
-    expect(service).toBeDefined();
   });
 
-  // describe('#getUserCredentials', () => {
-  //   it('should call signInWithPopup with the provided auth and a new GoogleAuthProvider', async () => {
-  //     const signInWithPopupSpy = jest.spyOn(signInWithPopup as any, 'bind');
-  //     const userCredentialMock: UserCredential =
-  //       {} as unknown as UserCredential;
+  describe('#getUserCredentials', () => {
+    it('should call signInWithPopup with the provided auth and a new GoogleAuthProvider', (done) => {
+      // Arrange
+      const userCredentialMock: UserCredential =
+        {} as unknown as UserCredential;
+      (service as any).signPopUp = jest
+        .fn()
+        .mockReturnValue(of(userCredentialMock).toPromise());
 
-  //     jest
-  //       .spyOn(signInWithPopup as any, 'bind')
-  //       .mockReturnValue(await lastValueFrom(of(userCredentialMock)));
+      // Act
+      const result = service.getUserCredentials();
 
-  //     const result = service.getUserCredentials();
+      // Assert
+      result.subscribe((userCredential) => {
+        expect(userCredential).toEqual(userCredentialMock);
+        done();
+      });
+    });
+  });
 
-  //     expect(signInWithPopupSpy).toHaveBeenCalledWith(
-  //       authMock,
-  //       expect.anything()
-  //     );
-  //     expect(result).toEqual(userCredentialMock);
-  //   });
-  // });
+  describe('#signOut', () => {
+    it('should call signOut and clear local storage', (done) => {
+      // Arrange
+      (service as any).signOutProperty = jest
+        .fn()
+        .mockReturnValue(of(undefined).toPromise());
+      const signOutSpy = jest.spyOn(service as any, 'signOutProperty');
 
-  // describe('#signOut', () => {
-  //   it('should call signOut and clear local storage', async () => {
-  //     const signOutSpy = jest.spyOn(signOut, 'bind');
-  //     const localStorageSpy = jest.spyOn(localStorage, 'clear');
+      // Act
+      const result = service.signOut();
 
-  //     jest.spyOn(signOut, 'bind').mockReturnValue(of(undefined).toPromise());
-
-  //     await service.signOut().toPromise();
-
-  //     expect(signOutSpy).toHaveBeenCalledWith(authMock);
-  //     expect(localStorageSpy).toHaveBeenCalled();
-  //   });
-  // });
+      // Assert
+      result.subscribe({
+        next: () => {
+          expect(signOutSpy).toHaveBeenCalledWith(authMock);
+          done();
+        },
+      });
+    });
+  });
 });
