@@ -33,22 +33,29 @@ describe('AuthGuard', () => {
   });
 
   it('should be created', () => {
+    // Assert
     expect(guard).toBeTruthy();
   });
 
   it('should canActivate return true', () => {
+    // Arrange
     jest.spyOn(delegate, 'execute').mockReturnValue(of(true));
 
+    // Act
     guard.canActivate().subscribe((result) => {
+      // Assert
       expect(result).toBe(true);
       expect(router.navigate).not.toHaveBeenCalled();
     });
   });
 
   it('should canActivate return false and navigate to index', () => {
+    // Arrange
     jest.spyOn(delegate, 'execute').mockReturnValue(of(false));
 
+    // Act
     guard.canActivate().subscribe(() => {
+      // Assert
       expect(router.navigate).toHaveBeenCalledWith(['index']);
     });
   });

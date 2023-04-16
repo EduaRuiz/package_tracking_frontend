@@ -7,13 +7,21 @@ describe('DataSignUpService', () => {
     service = new DataSignUpService();
   });
 
+  it('should be defined', () => {
+    // Assert
+    expect(service).toBeDefined();
+  });
+
   it('should set and get data', (done) => {
+    // Arrange
     const email = 'test@test.com';
     const firebaseId = '12345';
     const name = 'Test User';
 
+    // Act
     service.setData(email, firebaseId, name);
 
+    // Assert
     service.getData().subscribe((data) => {
       expect(data.email).toEqual(email);
       expect(data.firebaseId).toEqual(firebaseId);

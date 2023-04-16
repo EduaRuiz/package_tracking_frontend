@@ -14,6 +14,7 @@ describe('SignOutUseCase', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(signOutUseCase).toBeDefined();
   });
 

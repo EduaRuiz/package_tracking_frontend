@@ -45,6 +45,7 @@ describe('SignUpComponent', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(component).toBeDefined();
   });
 
@@ -130,7 +131,6 @@ describe('SignUpComponent', () => {
       jest
         .spyOn(mockDataSignUpService, 'getData')
         .mockReturnValue(of({ email, name, firebaseId }));
-
       jest
         .spyOn(mockSignUpUC, 'execute')
         .mockReturnValue(

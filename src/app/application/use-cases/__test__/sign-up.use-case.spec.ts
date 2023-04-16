@@ -19,6 +19,7 @@ describe('SignUpUseCase', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(signUpUseCase).toBeDefined();
   });
 

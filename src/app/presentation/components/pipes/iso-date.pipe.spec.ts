@@ -8,6 +8,7 @@ describe('IsoDatePipe', () => {
   });
 
   it('should create an instance', () => {
+    // Assert
     expect(pipe).toBeTruthy();
   });
 

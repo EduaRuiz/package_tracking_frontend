@@ -179,10 +179,15 @@ describe('ShipmentDetailComponent', () => {
     });
 
     it('should not call updateShipmentUC.execute when the form is invalid', () => {
+      // Arrange
       const spyOnExecute = jest.spyOn(updateShipmentUC, 'execute');
       component.editing = true;
       component.shipmentForm.get('originAddress')?.setValue('');
+
+      // Act
       component.save();
+
+      // Assert
       expect(spyOnExecute).not.toHaveBeenCalled();
     });
 

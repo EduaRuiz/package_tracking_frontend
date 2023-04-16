@@ -50,6 +50,7 @@ describe('NavbarComponent', () => {
   });
 
   it('should create', () => {
+    // Assert
     expect(component).toBeTruthy();
   });
 

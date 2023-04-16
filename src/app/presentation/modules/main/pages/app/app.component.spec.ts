@@ -6,6 +6,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
 
   beforeEach(async () => {
+    // Arrange
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [],
@@ -19,10 +20,12 @@ describe('AppComponent', () => {
   });
 
   it('should defined', () => {
+    // Assert
     expect(component).toBeDefined();
   });
 
   it(`should have as title 'package_tracking_frontend'`, () => {
+    // Assert
     expect(component.title).toEqual('package_tracking_frontend');
   });
 });

@@ -34,8 +34,16 @@ describe('AllShipmentsComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should create', () => {
+    // Assert
+    expect(component).toBeTruthy();
+    expect(component.showContent).toBe(false);
+    expect(component.shipments).toEqual([]);
+  });
+
   describe('ngOnInit', () => {
     it('should call toGetShipmentsByUser and set shipments, loading and showContent properties', fakeAsync(() => {
+      // Arrange
       const shipment1 = new ShipmentModel(
         'description 1' as any,
         { name: 'CREATED', description: 'Created on' },
@@ -55,20 +63,19 @@ describe('AllShipmentsComponent', () => {
         'destinationAddress 2' as any
       );
       const shipments = [shipment1, shipment2];
-
       jest.spyOn(mockGetShipmentsUC, 'execute').mockReturnValue(of(shipments));
 
+      // Act
       component.ngOnInit();
 
+      // Assert
       expect(mockGetShipmentsUC.toGetShipmentsByUser).toHaveBeenCalled();
       expect(mockGetShipmentsUC.execute).toHaveBeenCalled();
       expect(component.shipments).toEqual(shipments);
       expect(component.loading).toBe(false);
       expect(component.showContent).toBe(false);
-
       //Simulate setTimeout
       tick(1000);
-
       expect(component.showContent).toBe(true);
     }));
   });

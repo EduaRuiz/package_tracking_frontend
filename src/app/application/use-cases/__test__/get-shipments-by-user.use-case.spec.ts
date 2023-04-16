@@ -15,6 +15,7 @@ describe('GetShipmentsByUserUseCase', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(useCase).toBeDefined();
   });
 

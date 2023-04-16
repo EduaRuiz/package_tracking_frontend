@@ -26,6 +26,11 @@ describe('SharedGuard', () => {
     router = TestBed.inject(Router);
   });
 
+  it('should be created', () => {
+    // Assert
+    expect(guard).toBeTruthy();
+  });
+
   it('should redirect to dashboard if access token exists', (done) => {
     // Arrange
     const accessToken = 'some_access_token!';

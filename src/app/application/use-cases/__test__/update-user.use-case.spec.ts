@@ -21,6 +21,7 @@ describe('UpdateUserUseCase', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(updateUserUseCase).toBeDefined();
   });
 

@@ -1,8 +1,7 @@
-// Arrange
-
 import { StatusModel } from '..';
 
 describe('StatusModel', () => {
+  // Arrange
   let status: StatusModel;
   const name = 'Shipped';
   const description = 'The package has been shipped.';
@@ -22,7 +21,10 @@ describe('StatusModel', () => {
   });
 
   it('should create a new instance of StatusModel without optional parameters', () => {
+    // Act
     const newStatus = new StatusModel(name, description);
+
+    // Assert
     expect(newStatus).toBeInstanceOf(StatusModel);
     expect(newStatus.name).toEqual(name);
     expect(newStatus.description).toEqual(description);

@@ -23,6 +23,7 @@ describe('UpdateShipmentUseCase', () => {
   });
 
   it('should be defined', () => {
+    // Assert
     expect(updateShipmentUseCase).toBeDefined();
   });
 

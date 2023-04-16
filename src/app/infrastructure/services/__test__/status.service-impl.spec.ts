@@ -25,6 +25,11 @@ describe('StatusServiceImpl', () => {
     httpMock.verify();
   });
 
+  it('should be created', () => {
+    // Assert
+    expect(service).toBeTruthy();
+  });
+
   it('should retrieve a status by id', (done) => {
     // Arrange
     const statusId = '123';

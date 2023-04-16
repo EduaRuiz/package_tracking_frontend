@@ -23,13 +23,6 @@ describe('UserDetailComponent', () => {
     firebaseId: 'test test test',
   };
 
-  const userFormValues = {
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    document: user.document,
-  };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UserDetailComponent, IsoDatePipe],
