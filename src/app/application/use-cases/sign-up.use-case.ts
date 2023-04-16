@@ -1,6 +1,6 @@
 import { AuthDomainModel } from '@domain/models';
 import { IUseCase } from './interface';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ISignUpDomainCommand } from '@domain/commands';
 import { IUserDomainService } from '@domain/services';
 

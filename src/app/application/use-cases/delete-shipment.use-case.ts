@@ -1,4 +1,4 @@
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IShipmentDomainService } from 'src/app/domain/services';
 import { IUseCase } from './interface';
 

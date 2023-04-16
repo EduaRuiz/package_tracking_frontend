@@ -1,4 +1,4 @@
-import { Observable, catchError, map, switchMap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IUserDomainService } from 'src/app/domain/services';
 import { IUseCase } from './interface';
 

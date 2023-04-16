@@ -1,4 +1,4 @@
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IUseCase } from './interface';
 import { UserDomainModel } from '@domain/models';
 import { IUserDomainService } from '@domain/services';

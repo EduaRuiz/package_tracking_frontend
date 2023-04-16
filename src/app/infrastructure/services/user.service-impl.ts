@@ -1,6 +1,5 @@
 import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { IUserDomainService } from '@domain/services';
 import { AuthModel, UserModel } from '@infrastructure/models';
@@ -10,6 +9,7 @@ import {
   UpdateUserCommand,
 } from '@infrastructure/commands';
 import { UserDomainModel } from '@domain/models';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class UserServiceImpl implements IUserDomainService {

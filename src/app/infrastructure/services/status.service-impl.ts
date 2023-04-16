@@ -1,9 +1,9 @@
+import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IStatusDomainService } from '@domain/services';
 import { StatusModel } from '@infrastructure/models';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class StatusServiceImpl implements IStatusDomainService {

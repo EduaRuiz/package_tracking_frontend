@@ -1,7 +1,7 @@
 import { INewShipmentDomainCommand } from 'src/app/domain/commands';
 import { IUseCase } from './interface';
 import { IShipmentDomainService } from 'src/app/domain/services';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ShipmentDomainModel } from '@domain/models';
 
 export class RegisterNewShipmentUseCase

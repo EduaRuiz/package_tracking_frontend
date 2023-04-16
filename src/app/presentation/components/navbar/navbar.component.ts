@@ -44,6 +44,9 @@ export class NavbarComponent implements OnInit {
         );
         this.router.navigate(this.signOutPath);
       },
+      error: (error) => {
+        this.notificationService.showMessage('Error', error.message, 'error');
+      },
     });
   }
 }

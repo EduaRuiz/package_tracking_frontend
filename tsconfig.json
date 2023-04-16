@@ -32,6 +32,7 @@
       "@application/*": ["src/app/application/*"],
       "@infrastructure/*": ["src/app/infrastructure/*"],
       "@presentation/*": ["src/app/presentation/*"],
+      "@environments/*": ["src/environments/*"],
       "@assets/*": ["src/assets/*"],
     }
   },

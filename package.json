@@ -66,7 +66,8 @@
       "@domain/(.*)": "<rootDir>/src/app/domain/$1",
       "@application/(.*)": "<rootDir>/src/app/application/$1",
       "@infrastructure/(.*)": "<rootDir>/src/app/infrastructure/$1",
-      "@presentation/(.*)": "<rootDir>/src/app/presentation/$1"
+      "@presentation/(.*)": "<rootDir>/src/app/presentation/$1",
+      "@environments/(.*)": "<rootDir>/src/environments/$1"
     }
   }
 }

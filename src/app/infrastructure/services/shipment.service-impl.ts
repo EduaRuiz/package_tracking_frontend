@@ -1,3 +1,4 @@
+import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IShipmentDomainService } from '@domain/services';
@@ -6,8 +7,7 @@ import {
   UpdateShipmentCommand,
 } from '@infrastructure/commands';
 import { ShipmentModel } from '@infrastructure/models';
-import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ShipmentServiceImpl implements IShipmentDomainService {

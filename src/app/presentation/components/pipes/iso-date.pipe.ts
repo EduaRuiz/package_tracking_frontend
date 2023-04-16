@@ -7,8 +7,12 @@ import { DatePipe } from '@angular/common';
 export class IsoDatePipe implements PipeTransform {
   transform(value: string): string {
     const datePipe = new DatePipe('en-US');
-    const date = new Date(value);
-    const result = datePipe.transform(date, 'medium');
-    return result ?? '';
+    try {
+      const date = new Date(value);
+      const result = datePipe.transform(date, 'medium');
+      return result ?? '';
+    } catch (error) {
+      return '';
+    }
   }
 }

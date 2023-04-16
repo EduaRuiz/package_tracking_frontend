@@ -1,4 +1,4 @@
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ShipmentDomainModel } from '@domain/models';
 import { IShipmentDomainService } from '@domain/services';
 import { IUpdateShipmentDomainCommand } from '@domain/commands';

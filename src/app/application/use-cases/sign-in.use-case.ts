@@ -12,7 +12,7 @@ export class SignInUseCase implements IUseCase<AuthDomainModel> {
 
   execute(): Observable<AuthDomainModel> {
     return this.auth$.getUserCredentials().pipe(
-      switchMap((userCredential) => {
+      switchMap((userCredential: any) => {
         const { user } = userCredential;
         const { email, uid, displayName } = user;
         return this.user$.signIn({ email, firebaseId: uid }).pipe(
