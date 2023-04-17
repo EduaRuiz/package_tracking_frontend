@@ -9,7 +9,6 @@ import { AuthModel } from '@infrastructure/models';
 import { TypewriterComponent } from '@presentation/components';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
