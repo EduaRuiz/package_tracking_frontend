@@ -7,9 +7,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { PackageTrackingDelegate } from '../application';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from 'src/environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AuthServiceImpl } from './utils';
 
 @NgModule({
