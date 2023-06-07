@@ -13,5 +13,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PACKAGE_TRACKING_D5E6A }}"
-          projectId: package-tracking-d5e6a
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PACKAGE_TRACKING_FRONTEND }}"
+          projectId: package-tracking-frontend
