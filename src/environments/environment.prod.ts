@@ -9,7 +9,8 @@ export const environment = {
     measurementId: 'G-HK8XTGD2W1',
   },
   production: true,
-  apiUrl: 'https://package-tracking-backend.up.railway.app',
+  // apiUrl: 'https://package-tracking-backend.up.railway.app',
+  apiUrl: 'https://package-tracking-ppgx.onrender.com',
   // apiUrl: 'http://localhost:3000',
   regexEmail:
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
